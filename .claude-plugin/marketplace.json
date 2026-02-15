@@ -1,0 +1,14 @@
+{
+  "name": "claude-shapeup",
+  "owner": {
+    "name": "tiago-peixoto"
+  },
+  "plugins": [
+    {
+      "name": "shapeup",
+      "source": "./",
+      "description": "Shape Up methodology skills for Claude Code — frame problems, shape solutions, build with hill charts, and ship with ADRs.",
+      "version": "1.0.0"
+    }
+  ]
+}
