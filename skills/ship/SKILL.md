@@ -1,5 +1,5 @@
 ---
-name: shapeup-ship
+name: ship
 description: >
   Use this skill to conclude and archive a completed feature after building. Reads the entire feature
   folder (frame, package, hill chart, scopes, handovers), extracts architectural decisions,

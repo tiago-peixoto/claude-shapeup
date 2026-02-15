@@ -1,5 +1,5 @@
 ---
-name: shapeup-frame
+name: frame
 description: >
   Use this skill whenever someone has a raw idea, feature request, bug complaint, or vague product concept
   that needs to be investigated before any solution design begins. This is the FIRST step in the Shape Up

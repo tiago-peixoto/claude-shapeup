@@ -1,5 +1,5 @@
 ---
-name: shapeup-build
+name: build
 description: >
   Use this skill to execute a shaped Package within a build cycle. Implements the full building process:
   orient on the codebase, pick a first piece (core/small/novel), integrate vertically with TDD,

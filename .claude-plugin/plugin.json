@@ -1,0 +1,11 @@
+{
+  "name": "shapeup",
+  "description": "Shape Up methodology skills for Claude Code — frame problems, shape solutions, build with hill charts, and ship with ADRs.",
+  "version": "1.0.0",
+  "author": {
+    "name": "tiago-peixoto"
+  },
+  "homepage": "https://github.com/tiago-peixoto/claude-shapeup",
+  "repository": "https://github.com/tiago-peixoto/claude-shapeup",
+  "license": "MIT"
+}

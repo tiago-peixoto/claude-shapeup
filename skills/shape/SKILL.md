@@ -1,5 +1,5 @@
 ---
-name: shapeup-shape
+name: shape
 description: >
   Use this skill to transform a framed problem (with Frame Go approval) into a shaped Package
   ready for a build commitment. Shaping requires deep codebase analysis — examining actual source code,

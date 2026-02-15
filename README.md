@@ -1,105 +1,98 @@
 # Shape Up Skills for Claude Code
 
-A set of four Claude Code skills that implement the [Shape Up](https://basecamp.com/shapeup) methodology for AI-assisted product development. These skills guide an AI agent through the full product lifecycle — from raw idea to shipped feature — using fixed time, variable scope principles.
+Four Claude Code skills that teach your AI agent the [Shape Up](https://basecamp.com/shapeup) methodology. Fixed time, variable scope, zero hand-waving.
 
-## What is Shape Up?
+**Frame** the problem. **Shape** the solution. **Build** the code. **Ship** the knowledge.
 
-Shape Up is a product development methodology created by Ryan Singer at Basecamp (now 37signals). Instead of backlogs and sprints, Shape Up uses a fixed time-box (typically 6 weeks) with variable scope: you commit to a time budget, then shape the work to fit within it. The core pipeline is **Frame → Shape → Build → Ship**.
+## Why?
 
-This project translates that methodology into structured AI agent workflows, so Claude Code can run each phase interactively with a human product engineer.
+Backlogs are where ideas go to die. Shape Up replaces the infinite todo list with a simple bet: pick a time budget, shape the work to fit, build it, ship it. This project gives Claude Code the vocabulary and guardrails to run that process with you — interactively, one feature at a time.
 
-## Skills
+## The Skills
 
-### `/frame` — Lock the problem before designing solutions
+| Skill | What it does | Gate |
+|-------|-------------|------|
+| `/frame` | Turns a vague idea into a locked problem statement with appetite | Frame Go |
+| `/shape` | Deep codebase analysis → requirements, affordance tables, fit check matrix, Package | Shape Go |
+| `/build` | TDD, hill charts, scope hammering, handovers for multi-session work | Ready to Ship |
+| `/ship` | Extracts ADRs, updates architecture docs, archives the feature folder | Done |
 
-Runs an interactive session to investigate a raw idea or feature request. Produces a Frame document that captures the problem, affected users, business value, and time appetite. Ends with a **Frame Go** gate — no shaping begins until the problem is locked.
+Each skill is self-contained with its own reference docs — no external dependencies, no magic.
 
-### `/shape` — Design a technical solution grounded in the codebase
-
-Takes a Frame Go–approved problem and designs a solution through deep codebase analysis. Extracts numbered requirements (R0, R1...), builds affordance tables mapping UI and code, runs a fit check matrix (R × Solution), resolves all unknowns via time-boxed spikes, and produces a Package document. Ends with a **Shape Go** gate.
-
-### `/build` — Execute with TDD, hill charts, and scope hammering
-
-Implements the shaped Package using test-driven development. Orients on the codebase, picks a first piece (core/small/novel), discovers scopes, tracks progress on hill charts, and scope-hammers when capacity runs low. Writes handover documents for multi-session continuity.
-
-### `/ship` — Archive decisions and consolidate knowledge
-
-Reads the entire feature folder, extracts architectural decisions into ADRs (`docs/decisions/`), updates `docs/architecture.md`, renames the feature folder to `-shipped`, and regenerates the project dashboard.
-
-## Installation
-
-Copy the `.claude/` directory into your project root:
+## Quick Start
 
 ```bash
+# Fresh project
 cp -r .claude/ /path/to/your-project/.claude/
-```
 
-If your project already has a `.claude/` directory:
-
-```bash
+# Project that already has .claude/
 cp -r .claude/skills/shapeup-* /path/to/your-project/.claude/skills/
 cp .claude/hooks/ripple-check.sh /path/to/your-project/.claude/hooks/
+# Then merge hooks config from .claude/settings.local.json into yours
 ```
 
-Then merge the hook configuration from `.claude/settings.local.json` into your existing settings file.
+Open Claude Code, type `/frame`, and follow the conversation.
 
-The skills will be available in Claude Code as `/frame`, `/shape`, `/build`, and `/ship`.
+## What Happens at Runtime
+
+```
+.shapeup/
+├── 001-csv-import-framing/       # Active: being framed
+│   └── frame.md
+├── 002-auth-refresh-shaped/      # Ready: waiting for a build bet
+│   ├── frame.md
+│   └── package.md
+├── 003-dashboard-v2-building/    # In progress
+│   ├── frame.md
+│   ├── package.md
+│   ├── hillchart.md
+│   ├── scopes/
+│   └── handover-01.md
+├── 004-search-shipped/           # Done: decisions archived
+└── index.md                      # Auto-generated dashboard
+```
+
+Multiple features can run in parallel. Each one is a numbered folder with a status suffix.
+
+## The Ripple-Check Hook
+
+A PostToolUse hook that watches `.shapeup/**/*.md` edits. When the agent modifies `frame.md`, it gets a nudge: "Does the package still match?" When `package.md` changes: "Do the scopes still align?" Advisory only — it reminds, never blocks.
 
 ## Project Structure
 
 ```
 .claude/
 ├── hooks/
-│   └── ripple-check.sh          # PostToolUse hook for cross-document consistency
-├── settings.local.json           # Hook registration
+│   └── ripple-check.sh
+├── settings.local.json
 └── skills/
     ├── shapeup-frame/
-    │   ├── SKILL.md              # Framing session instructions
-    │   ├── scripts/
-    │   │   └── init-feature.sh   # Creates numbered feature folders
-    │   └── references/           # Shape Up methodology docs (9 files)
+    │   ├── SKILL.md
+    │   ├── scripts/init-feature.sh
+    │   └── references/              # 9 methodology docs per skill
     ├── shapeup-shape/
-    │   ├── SKILL.md              # Shaping session instructions
-    │   ├── scripts/
-    │   │   └── validate-package.sh  # Checks for TBDs, missing sections, ⚠️ flags
+    │   ├── SKILL.md
+    │   ├── scripts/validate-package.sh
     │   └── references/
     ├── shapeup-build/
-    │   ├── SKILL.md              # Build cycle instructions
-    │   ├── scripts/
-    │   │   └── update-hillchart.sh  # Hill chart initialization and display
+    │   ├── SKILL.md
+    │   ├── scripts/update-hillchart.sh
     │   └── references/
     └── shapeup-ship/
-        ├── SKILL.md              # Ship and archive instructions
-        ├── scripts/
-        │   └── regenerate-index.sh  # Dashboard generation from feature folders
+        ├── SKILL.md
+        ├── scripts/regenerate-index.sh
         └── references/
-
-.shapeup/                         # Created at runtime — feature folders live here
-├── 001-feature-name-framing/
-│   ├── frame.md
-│   ├── package.md
-│   ├── hillchart.md
-│   └── scopes/
-├── 002-another-feature-shipped/
-└── index.md                      # Auto-generated dashboard
 ```
-
-## The Ripple-Check Hook
-
-A PostToolUse hook that fires whenever a `.shapeup/**/*.md` file is written or edited. It prints context-aware reminders about cross-document consistency — for example, if you modify `frame.md`, it reminds the agent to check whether `package.md` still aligns. Advisory only, never blocks.
 
 ## Acknowledgments
 
-This project stands on the shoulders of Ryan Singer's work.
+This project exists because of [Ryan Singer](https://www.ryansinger.co/)'s work.
 
-**The Shape Up book** — the foundation for everything here. Written by Ryan Singer and published by 37signals (formerly Basecamp). The full book is freely available at [basecamp.com/shapeup](https://basecamp.com/shapeup). If you're new to Shape Up, read the book first — these skills are a complement, not a replacement.
+The **[Shape Up book](https://basecamp.com/shapeup)** is the foundation — written by Ryan and published by 37signals. It's free to read online and you should read it before using these skills. We distilled it; we didn't replace it.
 
-**Ryan Singer's articles** — two posts significantly shaped (pun intended) the evolution of these skills beyond the original book:
+Two of Ryan's articles pushed the methodology further and directly shaped these skills. **[Framing](https://www.ryansinger.co/framing/)** introduced a formal step before shaping — lock the problem before you design solutions — which became our `/frame` skill and the Frame Go gate. It also renamed "Pitch" to "Package," and we followed suit. **[Pitfalls When Adopting Shape Up](https://www.ryansinger.co/pitfalls-when-adopting-shape-up/)** identified undershaped work as the #1 failure mode, which is why `/shape` obsesses over actual codebase analysis and enforces zero TBDs.
 
-- [Framing](https://www.ryansinger.co/framing/) — introduces Framing as a formal step before Shaping, and renames "Pitch" to "Package". This directly informed our `/frame` skill and the Frame Go gate.
-- [Pitfalls When Adopting Shape Up](https://www.ryansinger.co/pitfalls-when-adopting-shape-up/) — identifies the three most common failure modes, especially undershaped work as the #1 killer. This informed our emphasis on deep codebase analysis and the zero-TBD rule.
-
-**Ryan Singer's [shaping-skills](https://github.com/rjs/shaping-skills) repository** — Ryan's own Claude Code skills for shaping. Several concepts from his implementation were absorbed into this project, including: formal requirement notation, fit check matrices, affordance tables with wiring, flagged unknowns, and the spike pattern for resolving them. His approach to structured shaping through AI agents was a key reference point. If you're looking for an alternative take on AI-assisted shaping, check out his repo.
+Ryan's own **[shaping-skills](https://github.com/rjs/shaping-skills)** repo for Claude Code was a direct inspiration. We absorbed several of his ideas: formal requirement notation (R0, R1...), fit check matrices, affordance tables with wiring, flagged unknowns, and time-boxed spikes for resolving them. If you want a different take on AI-assisted shaping, check his repo out.
 
 ## License
 
@@ -107,4 +100,4 @@ MIT
 
 ## Contributing
 
-These skills were designed to be forked and adapted. The reference documents in each skill's `references/` directory are self-contained — no external dependencies. Modify the SKILL.md files to match your team's workflow, add new reference docs for your domain, or create entirely new skills for phases we haven't covered (like a `/bet` skill for the betting table).
+Fork it, break it, make it yours. Each skill's `references/` directory is self-contained — swap in your own methodology docs, add domain-specific references, or build new skills for phases we skipped (a `/bet` skill for the betting table, anyone?).
