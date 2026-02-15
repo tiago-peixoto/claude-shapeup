@@ -18,7 +18,7 @@ mkdir -p "$SHAPEUP_DIR"
 NEXT_NUM=1
 for dir in "$SHAPEUP_DIR"/[0-9][0-9][0-9]-*; do
   if [ -d "$dir" ]; then
-    NUM=$(basename "$dir" | grep -oP '^\d{3}' | sed 's/^0*//')
+    NUM=$(basename "$dir" | grep -oE '^[0-9]{3}' | sed 's/^0*//')
     if [ "$NUM" -ge "$NEXT_NUM" ]; then
       NEXT_NUM=$((NUM + 1))
     fi

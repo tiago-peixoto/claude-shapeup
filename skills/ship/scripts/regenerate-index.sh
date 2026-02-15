@@ -44,7 +44,7 @@ if [ -n "$BUILDING" ]; then
   echo "" >> "$INDEX"
   for dir in $BUILDING; do
     NAME=$(basename "$dir")
-    ID=$(echo "$NAME" | grep -oP '^\d{3}')
+    ID=$(echo "$NAME" | grep -oE '^[0-9]{3}')
     SLUG=$(echo "$NAME" | sed 's/^[0-9]*-//;s/-building$//')
     echo "### $ID: $SLUG" >> "$INDEX"
     if [ -f "$dir/frame.md" ]; then
@@ -64,7 +64,7 @@ if [ -n "$SHAPED" ]; then
   echo "" >> "$INDEX"
   for dir in $SHAPED; do
     NAME=$(basename "$dir")
-    ID=$(echo "$NAME" | grep -oP '^\d{3}')
+    ID=$(echo "$NAME" | grep -oE '^[0-9]{3}')
     SLUG=$(echo "$NAME" | sed 's/^[0-9]*-//;s/-shaped$//')
     echo "### $ID: $SLUG" >> "$INDEX"
     echo "" >> "$INDEX"
@@ -77,7 +77,7 @@ if [ -n "$FRAMING" ]; then
   echo "" >> "$INDEX"
   for dir in $FRAMING; do
     NAME=$(basename "$dir")
-    ID=$(echo "$NAME" | grep -oP '^\d{3}')
+    ID=$(echo "$NAME" | grep -oE '^[0-9]{3}')
     SLUG=$(echo "$NAME" | sed 's/^[0-9]*-//;s/-framing$//')
     echo "### $ID: $SLUG" >> "$INDEX"
     echo "" >> "$INDEX"
@@ -90,7 +90,7 @@ if [ -n "$SHIPPED" ]; then
   echo "" >> "$INDEX"
   for dir in $SHIPPED; do
     NAME=$(basename "$dir")
-    ID=$(echo "$NAME" | grep -oP '^\d{3}')
+    ID=$(echo "$NAME" | grep -oE '^[0-9]{3}')
     SLUG=$(echo "$NAME" | sed 's/^[0-9]*-//;s/-shipped$//')
     echo "### $ID: $SLUG" >> "$INDEX"
     if [ -f "$dir/decisions.md" ]; then
@@ -106,7 +106,7 @@ if [ -n "$DISCARDED" ]; then
   echo "" >> "$INDEX"
   for dir in $DISCARDED; do
     NAME=$(basename "$dir")
-    ID=$(echo "$NAME" | grep -oP '^\d{3}')
+    ID=$(echo "$NAME" | grep -oE '^[0-9]{3}')
     SLUG=$(echo "$NAME" | sed 's/^[0-9]*-//;s/-discarded$//')
     echo "### $ID: $SLUG" >> "$INDEX"
     if [ -f "$dir/discard-reason.md" ]; then

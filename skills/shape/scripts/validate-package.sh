@@ -13,9 +13,9 @@ fi
 ISSUES=0
 
 # Check for TBD/TODO/FIXME markers
-if grep -qiP '\bTBD\b|\bTODO\b|\bFIXME\b' "$PACKAGE"; then
+if grep -qiE '(^|[^a-zA-Z])(TBD|TODO|FIXME)([^a-zA-Z]|$)' "$PACKAGE"; then
   echo "UNRESOLVED ITEMS FOUND:"
-  grep -niP '\bTBD\b|\bTODO\b|\bFIXME\b' "$PACKAGE"
+  grep -niE '(^|[^a-zA-Z])(TBD|TODO|FIXME)([^a-zA-Z]|$)' "$PACKAGE"
   ISSUES=$((ISSUES + 1))
 fi
 
