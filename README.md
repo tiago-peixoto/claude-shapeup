@@ -12,26 +12,23 @@ Backlogs are where ideas go to die. Shape Up replaces the infinite todo list wit
 
 | Skill | What it does | Gate |
 |-------|-------------|------|
-| `/frame` | Turns a vague idea into a locked problem statement with appetite | Frame Go |
-| `/shape` | Deep codebase analysis → requirements, affordance tables, fit check matrix, Package | Shape Go |
-| `/build` | TDD, hill charts, scope hammering, handovers for multi-session work | Ready to Ship |
-| `/ship` | Extracts ADRs, updates architecture docs, archives the feature folder | Done |
+| `/shapeup:frame` | Turns a vague idea into a locked problem statement with appetite | Frame Go |
+| `/shapeup:shape` | Deep codebase analysis → requirements, affordance tables, fit check matrix, Package | Shape Go |
+| `/shapeup:build` | TDD, hill charts, scope hammering, handovers for multi-session work | Ready to Ship |
+| `/shapeup:ship` | Extracts ADRs, updates architecture docs, archives the feature folder | Done |
 
 Each skill is self-contained with its own reference docs — no external dependencies, no magic.
 
 ## Quick Start
 
-```bash
-# Fresh project
-cp -r .claude/ /path/to/your-project/.claude/
+In Claude Code, run:
 
-# Project that already has .claude/
-cp -r .claude/skills/shapeup-* /path/to/your-project/.claude/skills/
-cp .claude/hooks/ripple-check.sh /path/to/your-project/.claude/hooks/
-# Then merge hooks config from .claude/settings.local.json into yours
+```
+/plugin marketplace add tiago-peixoto/claude-shapeup
+/plugin install shapeup
 ```
 
-Open Claude Code, type `/frame`, and follow the conversation.
+Type `/shapeup:frame` and follow the conversation.
 
 ## What Happens at Runtime
 
@@ -61,27 +58,28 @@ A PostToolUse hook that watches `.shapeup/**/*.md` edits. When the agent modifie
 ## Project Structure
 
 ```
-.claude/
-├── hooks/
-│   └── ripple-check.sh
-├── settings.local.json
-└── skills/
-    ├── shapeup-frame/
-    │   ├── SKILL.md
-    │   ├── scripts/init-feature.sh
-    │   └── references/              # 9 methodology docs per skill
-    ├── shapeup-shape/
-    │   ├── SKILL.md
-    │   ├── scripts/validate-package.sh
-    │   └── references/
-    ├── shapeup-build/
-    │   ├── SKILL.md
-    │   ├── scripts/update-hillchart.sh
-    │   └── references/
-    └── shapeup-ship/
-        ├── SKILL.md
-        ├── scripts/regenerate-index.sh
-        └── references/
+.claude-plugin/
+├── plugin.json
+└── marketplace.json
+hooks/
+└── ripple-check.sh
+skills/
+├── frame/
+│   ├── SKILL.md
+│   ├── scripts/init-feature.sh
+│   └── references/              # 9 methodology docs per skill
+├── shape/
+│   ├── SKILL.md
+│   ├── scripts/validate-package.sh
+│   └── references/
+├── build/
+│   ├── SKILL.md
+│   ├── scripts/update-hillchart.sh
+│   └── references/
+└── ship/
+    ├── SKILL.md
+    ├── scripts/regenerate-index.sh
+    └── references/
 ```
 
 ## Acknowledgments
@@ -90,7 +88,7 @@ This project exists because of [Ryan Singer](https://www.ryansinger.co/)'s work.
 
 The **[Shape Up book](https://basecamp.com/shapeup)** is the foundation — written by Ryan and published by 37signals. It's free to read online and you should read it before using these skills. We distilled it; we didn't replace it.
 
-Two of Ryan's articles pushed the methodology further and directly shaped these skills. **[Framing](https://www.ryansinger.co/framing/)** introduced a formal step before shaping — lock the problem before you design solutions — which became our `/frame` skill and the Frame Go gate. It also renamed "Pitch" to "Package," and we followed suit. **[Pitfalls When Adopting Shape Up](https://www.ryansinger.co/pitfalls-when-adopting-shape-up/)** identified undershaped work as the #1 failure mode, which is why `/shape` obsesses over actual codebase analysis and enforces zero TBDs.
+Two of Ryan's articles pushed the methodology further and directly shaped these skills. **[Framing](https://www.ryansinger.co/framing/)** introduced a formal step before shaping — lock the problem before you design solutions — which became our `/shapeup:frame` skill and the Frame Go gate. It also renamed "Pitch" to "Package," and we followed suit. **[Pitfalls When Adopting Shape Up](https://www.ryansinger.co/pitfalls-when-adopting-shape-up/)** identified undershaped work as the #1 failure mode, which is why `/shapeup:shape` obsesses over actual codebase analysis and enforces zero TBDs.
 
 Ryan's own **[shaping-skills](https://github.com/rjs/shaping-skills)** repo for Claude Code was a direct inspiration. We absorbed several of his ideas: formal requirement notation (R0, R1...), fit check matrices, affordance tables with wiring, flagged unknowns, and time-boxed spikes for resolving them. If you want a different take on AI-assisted shaping, check his repo out.
 
@@ -100,4 +98,4 @@ MIT
 
 ## Contributing
 
-Fork it, break it, make it yours. Each skill's `references/` directory is self-contained — swap in your own methodology docs, add domain-specific references, or build new skills for phases we skipped (a `/bet` skill for the betting table, anyone?).
+Fork it, break it, make it yours. Each skill's `references/` directory is self-contained — swap in your own methodology docs, add domain-specific references, or build new skills for phases we skipped (a `/shapeup:bet` skill for the betting table, anyone?).
