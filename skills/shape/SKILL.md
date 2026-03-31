@@ -274,7 +274,7 @@ Write the Package to `.shapeup/<NNN-slug-framing>/package.md`:
 
 ## Appetite
 
-<Small Batch (X weeks) / Big Batch (6 weeks)>
+<Small Batch (1 session) / Medium Batch (2-3 sessions) / Big Batch (4-5 sessions)>
 
 ## Requirements (R)
 

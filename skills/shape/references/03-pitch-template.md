@@ -37,8 +37,9 @@ This causes [specific negative outcome]. Currently [X users / Y% of cases] exper
 **What it is**: The time budget — how much time this problem deserves.
 
 **Options**:
-- **Small Batch**: 1-2 weeks
-- **Big Batch**: 6 weeks
+- **Small Batch**: 1 session
+- **Medium Batch**: 2-3 sessions
+- **Big Batch**: 4-5 sessions
 
 **Requirements**:
 - State the appetite explicitly
@@ -47,7 +48,7 @@ This causes [specific negative outcome]. Currently [X users / Y% of cases] exper
 
 **Example format**:
 ```
-Appetite: [Small Batch — 2 weeks] or [Big Batch — 6 weeks]
+Appetite: [Small Batch — 1 session] or [Medium Batch — 2-3 sessions] or [Big Batch — 4-5 sessions]
 ```
 
 ---
@@ -159,7 +160,7 @@ For AI agents evaluating whether a pitch is ready for the betting table:
 [Specific story about user pain point and current baseline]
 
 ## Appetite
-[Big Batch — 6 weeks] or [Small Batch — X weeks]
+[Small Batch — 1 session] or [Medium Batch — 2-3 sessions] or [Big Batch — 4-5 sessions]
 
 ## Solution
 [Description of key elements with annotated sketches]

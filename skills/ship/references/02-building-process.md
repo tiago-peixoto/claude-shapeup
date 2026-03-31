@@ -1,10 +1,10 @@
 # Building Process
 
-> Reference for AI agents performing the Building role. Building executes shaped work within a fixed six-week cycle.
+> Reference for AI agents performing the Building role. Building executes shaped work within a fixed appetite of sessions.
 
 ## Overview
 
-Building begins after a pitch is bet on at the betting table. A team (typically one designer + 1-2 programmers) receives the full project — not individual tasks. The team owns all decisions about how to execute within the shaped boundaries. The cycle ends with deployed software.
+Building begins after a package is bet on. The builder receives the full project — not individual tasks. The builder owns all decisions about how to execute within the shaped boundaries. The build ends with deployed software.
 
 ---
 
@@ -72,11 +72,11 @@ Build **strategically patchy** backends:
 
 ### Milestone
 
-By end of first week: one integrated, clickable piece of the project works end-to-end. Team has confidence. Concept is validated.
+By end of first session: one integrated, clickable piece of the project works end-to-end. Confidence built. Concept validated.
 
 ---
 
-## Phase 3: Map the Scopes (Week 1-2)
+## Phase 3: Map the Scopes (Session 1-2)
 
 ### What Are Scopes
 
@@ -92,7 +92,7 @@ Scopes are **discovered through real work**, not planned upfront.
 1. Start by capturing tasks as they're found
 2. As work reveals relationships, group tasks into scopes
 3. Name each scope with language specific to THIS project
-4. Expect scopes to stabilize around end of week 1 or start of week 2
+4. Expect scopes to stabilize during session 1 or start of session 2
 5. Expect shuffling and renaming as real boundaries emerge
 
 ### Scope Quality Checks
@@ -171,7 +171,7 @@ When a scope appears stuck on the hill:
 1. **Riskiest scopes first** — push the scariest unknowns uphill before anything else
 2. **Question for prioritization**: "If we run out of time, which scope could we whip together despite unknowns? Which might be harder than expected?"
 3. **Inverted pyramid**: Most important problems first, most unknowns first. Leave routine work for last.
-4. By cycle end: important things finished, only nice-to-haves remaining.
+4. By final session: important things finished, only nice-to-haves remaining.
 
 ---
 
@@ -206,7 +206,7 @@ Continuously question every piece of work:
 
 ### QA Integration
 
-- QA enters toward cycle end to find edge cases
+- QA enters toward final session to find edge cases
 - All QA-discovered issues are **nice-to-haves by default**
 - Team triages and elevates to must-have only if truly critical
 - Designers and programmers own basic quality — QA is a level-up, not a gate
@@ -218,7 +218,7 @@ Extensions are **very rare** and require BOTH conditions:
 1. Outstanding tasks are true must-haves that survived scope hammering
 2. ALL remaining work is downhill (no unknowns, only execution)
 
-If work is still uphill at cycle end → shaping problem. Return to shaping, do not extend.
+If work is still uphill at final session → shaping problem. Return to shaping, do not extend.
 
 ---
 
@@ -227,8 +227,8 @@ If work is still uphill at cycle end → shaping problem. Return to shaping, do 
 ### Deployment
 
 - Done means deployed. Not "ready for review" or "in staging."
-- Small batch projects ship individually as completed within the cycle
-- Testing and QA happen within the cycle, not after
+- Small batch projects ship within a single session
+- Testing and QA happen within the build sessions, not after
 
 ### Post-Ship Rules
 
@@ -244,7 +244,7 @@ Post-ship feedback arrives
   → Treat as raw idea (not commitment)
     → If truly important → Shape it on the shaping track
       → Compete at next betting table
-        → If bet on → Build in future cycle
+        → If bet on → Build in future sessions
 ```
 
 ---

@@ -14,7 +14,7 @@ description: >
 You are running a **Ship session** — the final step of the Shape Up methodology.
 Shipping archives a completed feature, captures architectural decisions, and updates team knowledge.
 
-> **Read** `references/06-agent-workflow-guide.md` for full cycle context.
+> **Read** `references/06-agent-workflow-guide.md` for full pipeline context.
 
 ---
 

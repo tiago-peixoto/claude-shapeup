@@ -4,25 +4,21 @@
 
 ## Core Concepts
 
-**Appetite**: The amount of time allocated to a project. NOT an estimate. A creative constraint that drives scope decisions. Sizes: Small Batch (1-2 weeks) or Big Batch (6 weeks).
+**Appetite**: The number of sessions allocated to a project. NOT an estimate. A creative constraint that drives scope decisions. Sizes: Small Batch (1 session), Medium Batch (2-3 sessions), or Big Batch (4-5 sessions). A "session" is one focused AI-assisted work conversation.
 
 **Baseline**: What customers currently do without the feature being built. The comparison point for judging "good enough."
 
-**Bet**: A commitment to assign a team to a project for one cycle with no interruptions and an expectation to finish.
+**Bet**: A commitment to invest the allocated sessions on a project with no interruptions and an expectation to finish.
 
-**Betting Table**: A meeting during cool-down where stakeholders decide which packages to fund for the next cycle. Clean slate each time.
+**Betting Table**: The decision point where the stakeholder decides which packages to commit sessions to. Clean slate each time.
 
 **Breadboard**: A UI concept that defines places, affordances, and connections without any visual styling. Uses words and arrows, not pictures.
 
 **Candidate**: A raw request or idea that hasn't been framed yet. The starting state in the pipeline.
 
-**Circuit Breaker**: Default policy: if a project doesn't ship in one cycle, it is cancelled (not extended). Prevents runaway projects.
+**Circuit Breaker**: Default policy: if a project doesn't ship within the allocated sessions, it is cancelled (not extended). Prevents runaway projects.
 
-**Cool-Down**: A two-week break between cycles for ad-hoc tasks, bug fixes, and the betting table.
-
-**Cycle**: A six-week period where teams work uninterrupted on shaped projects.
-
-**De-Risk**: The process of removing rabbit holes and unknowns from shaped work to improve odds of shipping within one cycle.
+**De-Risk**: The process of removing rabbit holes and unknowns from shaped work to improve odds of shipping within the allocated sessions.
 
 **Discovered Tasks**: Tasks the team finds only after starting real work. These make up the true bulk of any project.
 
@@ -66,11 +62,11 @@
 
 **Shaping**: The process of making a framed problem concrete by defining key elements, technical wiring, and risks. Happens AFTER framing. Produces a Package.
 
-**Six Weeks**: The cycle length. Long enough to finish something meaningful; short enough to feel the deadline from day one.
+**Small Batch**: A single-session project. Quick wins and contained scope.
 
-**Small Batch**: A set of 1-2 week projects that a single team ships within one six-week cycle.
+**Medium Batch**: A 2-3 session project. Moderate scope with clear boundaries.
 
-**Big Batch**: One project that occupies a team for a whole cycle.
+**Big Batch**: A 4-5 session project. Significant features or cross-cutting changes.
 
 **Uphill**: The phase of work where unknowns and unsolved problems remain. Requires investigation and problem-solving.
 

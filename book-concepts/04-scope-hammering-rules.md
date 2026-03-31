@@ -118,7 +118,7 @@ Cutting scope is NOT lowering quality. It is being selective about WHAT to execu
 
 ## QA-Discovered Issues
 
-When QA finds issues late in the cycle:
+When QA finds issues late in the build:
 
 1. **Default classification**: All QA issues are nice-to-haves
 2. **Triage**: Team evaluates severity
@@ -130,7 +130,7 @@ When QA finds issues late in the cycle:
 
 ## Extension Decision (Rare)
 
-A project extension past the cycle deadline requires BOTH:
+A project extension past the allocated sessions requires BOTH:
 
 1. Remaining tasks are genuine must-haves that survived every scope hammering question
 2. ALL remaining work is downhill (no unknowns, only execution)
