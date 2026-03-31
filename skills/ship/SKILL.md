@@ -14,7 +14,21 @@ description: >
 You are running a **Ship session** — the final step of the Shape Up methodology.
 Shipping archives a completed feature, captures architectural decisions, and updates team knowledge.
 
-> **Read** `references/06-agent-workflow-guide.md` for full cycle context.
+> **Reference Index** — Read only what you need, when you need it.
+>
+> | File | Contains | When to read |
+> |------|----------|-------------|
+> | `references/06-agent-workflow-guide.md` | Full pipeline overview, role mapping, status formats | **Read now** — core context for archival |
+> | `references/00-glossary.md` | Shape Up terminology definitions | Read if you encounter an unfamiliar term |
+> | `references/03-pitch-template.md` | Package format (5 ingredients) | Read if you need to interpret the Package structure |
+> | `references/01-shaping-process.md` | How shaping works | Read if you need context for extracting shaping decisions |
+> | `references/02-building-process.md` | How building works | Read if you need context for extracting build decisions |
+> | `references/07-pitfalls.md` | Three critical failure modes | Read if you need to document lessons learned |
+> | `references/04-scope-hammering-rules.md` | Scope cutting decisions | Read if you need to document what was cut and why |
+> | `references/05-hill-chart-protocol.md` | Progress tracking model | Not needed during shipping |
+> | `references/08-framing.md` | Framing methodology | Not needed during shipping |
+>
+> **Do NOT read all references upfront.** Read the "Read now" file, then consult others only when a specific question arises during the session.
 
 ---
 
@@ -43,13 +57,20 @@ Your job:
    ```bash
    ls -d <project-root>/.shapeup/<NNN>-*
    ```
-3. Read ALL documents in the feature folder:
-   - `frame.md` — original problem and business value
-   - `package.md` — shaped solution and technical wiring
-   - `hillchart.md` — final state of progress
-   - `handover-*.md` — execution chronicle across sessions
-   - `scopes/*.md` — all scope files with task lists
-   - `decisions.md` — if already exists from build phase
+3. **Check for build summary first** (token-efficient path):
+   ```bash
+   cat <feature-dir>/build-summary.md 2>/dev/null
+   ```
+   - **If `build-summary.md` exists**: Read it + `frame.md` + `package.md` only.
+     The build summary contains decisions, cuts, and lessons — no need to read
+     handovers, scopes, or hillchart individually.
+   - **If `build-summary.md` does NOT exist** (older features): Fall back to reading all:
+     - `frame.md` — original problem and business value
+     - `package.md` — shaped solution and technical wiring
+     - `hillchart.md` — final state of progress
+     - `handover-*.md` — execution chronicle across sessions
+     - `scopes/*.md` — all scope files with task lists
+     - `decisions.md` — if already exists from build phase
 
 4. Set up TodoWrite:
    - Reading feature documentation

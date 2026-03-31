@@ -14,8 +14,21 @@ description: >
 You are running an interactive **Shaping session** — the second step of the Shape Up methodology.
 Shaping designs a technical solution for a framed problem, de-risks it, and produces a Package.
 
-> **Read** `references/01-shaping-process.md`, `references/03-pitch-template.md`, and `references/07-pitfalls.md` before proceeding.
-> The #1 failure mode is **undershaped work** — solutions that read well but skip technical validation.
+> **Reference Index** — Read only what you need, when you need it.
+>
+> | File | Contains | When to read |
+> |------|----------|-------------|
+> | `references/01-shaping-process.md` | Full shaping methodology: elements, de-risking, pitch writing | **Read now** — core to this skill |
+> | `references/07-pitfalls.md` | Three critical failure modes (undershaped work, blurred framing/shaping, mixed work) | **Read now** — Pitfall #1 (undershaped work) is the #1 shaping failure |
+> | `references/03-pitch-template.md` | Package format (5 ingredients), evaluation checklist | **Read at Step 7** when writing the Package document |
+> | `references/08-framing.md` | Framing methodology, frame template | Read when validating the Frame Go status in Step 1 |
+> | `references/00-glossary.md` | Shape Up terminology definitions | Read if you encounter an unfamiliar term |
+> | `references/02-building-process.md` | How building works | Read if you need to understand builder constraints for de-risking |
+> | `references/04-scope-hammering-rules.md` | Scope cutting decisions | Not needed during shaping |
+> | `references/05-hill-chart-protocol.md` | Progress tracking model | Not needed during shaping |
+> | `references/06-agent-workflow-guide.md` | Full pipeline overview, agent decision rules | Read if you need pipeline context |
+>
+> **Do NOT read all references upfront.** Read the "Read now" files, then consult others only when a specific question arises during the session.
 
 ---
 
@@ -256,7 +269,71 @@ If any TBD/TODO/FIXME strings remain, resolve them before proceeding.
 
 ### Step 7: Produce Package Document
 
-Write the Package to `.shapeup/<NNN-slug-framing>/package.md`:
+Write the Package to `.shapeup/<NNN-slug-framing>/package.md`.
+
+**Choose the template based on appetite:**
+
+#### Small Batch Template (1 session)
+
+For Small Batch features, use this condensed format. Affordance tables are replaced with a
+simpler changes table, but the fit check is kept inline to catch solution gaps.
+
+```markdown
+# Package: <Project Name>
+
+**Feature ID**: <NNN>
+**Created**: <date>
+**Frame**: <link to frame.md>
+**Appetite**: Small Batch (1 session)
+**Status**: Shaping
+
+---
+
+## Problem
+
+<From frame.md — the specific pain point and baseline>
+
+## Requirements
+
+- **R0**: <Core goal>
+- **R1**: <Must-have>
+- **R2**: <Must-have>
+
+## Solution
+
+<Overview of the approach — 2-3 sentences>
+
+### Changes
+
+| File / Module | Change | Serves |
+|---------------|--------|--------|
+| <path> | <what changes> | R0, R1 |
+| <path> | <what changes> | R2 |
+
+**Fit check**: Every R above maps to at least one change. No gaps.
+
+## Rabbit Holes
+
+- **<Risk>**: <Resolution>
+
+## No-Gos
+
+- **<Exclusion>**: <Reason>
+
+## Technical Validation
+
+**Key files reviewed**: <list>
+**Approach validated**: <summary of feasibility confirmation>
+**Test strategy**: <TDD approach>
+
+---
+
+## Status: Shaping
+```
+
+#### Medium / Big Batch Template (2+ sessions)
+
+For Medium and Big Batch features, use the full template with affordance tables and fit check matrix.
 
 ```markdown
 # Package: <Project Name>

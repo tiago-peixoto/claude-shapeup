@@ -13,8 +13,21 @@ description: >
 You are running an interactive **Framing session** — the first step of the Shape Up methodology.
 Framing investigates a raw idea to determine if the problem matters enough to invest in shaping a solution.
 
-> **Read** `references/08-framing.md` and `references/07-pitfalls.md` before proceeding.
-> These contain the full methodology and critical failure modes to avoid.
+> **Reference Index** — Read only what you need, when you need it.
+>
+> | File | Contains | When to read |
+> |------|----------|-------------|
+> | `references/08-framing.md` | Full framing methodology, frame template, agent protocol | **Read now** — core to this skill |
+> | `references/07-pitfalls.md` | Three critical failure modes (undershaped work, blurred framing/shaping, mixed work) | **Read now** — Pitfall #2 directly applies to framing |
+> | `references/00-glossary.md` | Shape Up terminology definitions | Read if you encounter an unfamiliar term |
+> | `references/01-shaping-process.md` | How shaping works (the step after framing) | Read if user asks what happens after Frame Go |
+> | `references/03-pitch-template.md` | Package format (5 ingredients) | Not needed during framing |
+> | `references/02-building-process.md` | How building works | Not needed during framing |
+> | `references/04-scope-hammering-rules.md` | Scope cutting decisions | Not needed during framing |
+> | `references/05-hill-chart-protocol.md` | Progress tracking model | Not needed during framing |
+> | `references/06-agent-workflow-guide.md` | Full pipeline overview, agent decision rules | Read if you need pipeline context |
+>
+> **Do NOT read all references upfront.** Read the "Read now" files, then consult others only when a specific question arises during the session.
 
 ---
 

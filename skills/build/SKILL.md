@@ -14,8 +14,21 @@ description: >
 You are running a **Build session** — the execution phase of the Shape Up methodology.
 Building turns a shaped Package into deployed software within a fixed appetite.
 
-> **Read** `references/02-building-process.md`, `references/04-scope-hammering-rules.md`,
-> and `references/05-hill-chart-protocol.md` before proceeding.
+> **Reference Index** — Read only what you need, when you need it.
+>
+> | File | Contains | When to read |
+> |------|----------|-------------|
+> | `references/02-building-process.md` | Full building methodology: orientation, vertical integration, scopes, shipping | **Read now** — core to this skill |
+> | `references/05-hill-chart-protocol.md` | Hill chart model, uphill/downhill phases, stuck scope protocol | **Read now** — needed for progress tracking |
+> | `references/04-scope-hammering-rules.md` | Scope cutting decision framework, must-have vs nice-to-have | **Read at Step 6** when capacity gets tight |
+> | `references/07-pitfalls.md` | Three critical failure modes | Read if scopes are stuck or work feels undershaped |
+> | `references/00-glossary.md` | Shape Up terminology definitions | Read if you encounter an unfamiliar term |
+> | `references/01-shaping-process.md` | How shaping works | Read if the Package seems incomplete or unclear |
+> | `references/03-pitch-template.md` | Package format (5 ingredients) | Read if you need to interpret the Package structure |
+> | `references/06-agent-workflow-guide.md` | Full pipeline overview, agent decision rules | Read if reactive work conflicts with build |
+> | `references/08-framing.md` | Framing methodology | Not needed during building |
+>
+> **Do NOT read all references upfront.** Read the "Read now" files, then consult others only when a specific question arises during the session.
 
 ---
 
@@ -286,11 +299,37 @@ When all must-haves are complete and all scopes are downhill or done:
 
 2. **Update hill chart** — all scopes should show ✓ or ▼ near done
 
-3. **Ask user** via AskUserQuestion:
+3. **Write build summary** for the ship phase (saves ship from re-reading all artifacts):
+   Write `<feature-dir>/build-summary.md`:
+   ```markdown
+   # Build Summary — <Feature Name>
+
+   **Feature ID**: <NNN>
+   **Sessions**: <how many build sessions>
+   **Date completed**: <date>
+
+   ## What Was Built
+   - <Bullet list of implemented functionality>
+
+   ## Key Decisions Made During Build
+   - <Decision>: <Rationale — why this approach over alternatives>
+   - <Decision>: <Rationale>
+
+   ## What Was Cut (Scope Hammering)
+   - <Item>: <Why acceptable to cut>
+
+   ## Files Changed
+   - <List key files added or modified>
+
+   ## What Surprised Us
+   - <Anything harder/easier than expected, lessons learned>
+   ```
+
+4. **Ask user** via AskUserQuestion:
    - "All must-haves are complete. Ready to ship?"
    - Options: "Ship it" / "One more pass" / "Need to scope hammer more"
 
-4. If shipping: Tell user to run `/ship <NNN>` to archive and produce ADRs
+5. If shipping: Tell user to run `/ship <NNN>` to archive and produce ADRs
 
 ---
 
