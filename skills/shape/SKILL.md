@@ -29,6 +29,8 @@ Shaping designs a technical solution for a framed problem, de-risks it, and prod
 > | `references/06-agent-workflow-guide.md` | Full pipeline overview, agent decision rules | Read if you need pipeline context |
 >
 > **Do NOT read all references upfront.** Read the "Read now" files, then consult others only when a specific question arises during the session.
+>
+> ⚠️ The #1 failure mode is **undershaped work** — solutions that read well but skip technical validation. See pitfalls.
 
 ---
 
@@ -273,7 +275,7 @@ Write the Package to `.shapeup/<NNN-slug-framing>/package.md`.
 
 **Choose the template based on appetite:**
 
-#### Small Batch Template (1 session)
+#### Small Batch Template (1-2 weeks)
 
 For Small Batch features, use this condensed format. Affordance tables are replaced with a
 simpler changes table, but the fit check is kept inline to catch solution gaps.
@@ -284,7 +286,7 @@ simpler changes table, but the fit check is kept inline to catch solution gaps.
 **Feature ID**: <NNN>
 **Created**: <date>
 **Frame**: <link to frame.md>
-**Appetite**: Small Batch (1 session)
+**Appetite**: Small Batch (1-2 weeks)
 **Status**: Shaping
 
 ---
@@ -331,9 +333,9 @@ simpler changes table, but the fit check is kept inline to catch solution gaps.
 ## Status: Shaping
 ```
 
-#### Medium / Big Batch Template (2+ sessions)
+#### Big Batch Template (6 weeks)
 
-For Medium and Big Batch features, use the full template with affordance tables and fit check matrix.
+For Big Batch features, use the full template with affordance tables and fit check matrix.
 
 ```markdown
 # Package: <Project Name>

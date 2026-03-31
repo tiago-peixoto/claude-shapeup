@@ -299,13 +299,14 @@ When all must-haves are complete and all scopes are downhill or done:
 
 2. **Update hill chart** — all scopes should show ✓ or ▼ near done
 
-3. **Write build summary** for the ship phase (saves ship from re-reading all artifacts):
+3. **Write build summary** for the ship phase.
+   This is a raw handoff document — ship will refine it into the formal `decisions.md`.
    Write `<feature-dir>/build-summary.md`:
    ```markdown
    # Build Summary — <Feature Name>
 
    **Feature ID**: <NNN>
-   **Sessions**: <how many build sessions>
+   **Build cycles**: <how many>
    **Date completed**: <date>
 
    ## What Was Built
