@@ -18,9 +18,10 @@ Never design solutions before the problem is locked. Never write a pitch before 
 
 Before designing anything, decide how much time the idea deserves:
 
-- **Small Batch**: 1-2 weeks (one designer + 1-2 programmers)
-- **Big Batch**: Full 6 weeks (same team size)
-- If idea exceeds 6 weeks after narrowing, break it into independent 6-week pieces
+- **Small Batch**: 1 session (quick win, contained scope)
+- **Medium Batch**: 2-3 sessions (moderate scope, clear boundaries)
+- **Big Batch**: 4-5 sessions (significant feature, cross-cutting change)
+- If idea exceeds 5 sessions after narrowing, break it into independent pieces
 
 The appetite is a **constraint**, not an estimate. It drives the design, not the other way around.
 
@@ -98,7 +99,7 @@ Elements must be:
 
 ### Goal
 
-Shape the probability distribution: slight chance of running one week over, but never multiple times the appetite.
+Shape the probability distribution: slight chance of running one session over, but never multiple times the appetite.
 
 ### Process
 
@@ -122,7 +123,7 @@ Shape the probability distribution: slight chance of running one week over, but 
 Before writing the pitch, present to a technical expert if uncertain:
 
 - **Frame as exploratory**: "Here's something I'm thinking about..."
-- **Right question**: "Is this possible in 6 weeks?" (not "Is this possible?")
+- **Right question**: "Is this possible in the appetite?" (not "Is this possible?")
 - **Goal**: Hunt for time bombs
 - **Keep clay wet**: Redraw elements, invite alternative approaches
 
@@ -131,7 +132,7 @@ Before writing the pitch, present to a technical expert if uncertain:
 - [ ] Solution elements defined as **wiring** (connections, data flows, affected modules) — not just UI concepts
 - [ ] Actual codebase, data models, and architecture reviewed
 - [ ] Rabbit holes patched or declared out of bounds — **zero TBDs allowed** (every unresolved rabbit hole is a time bomb)
-- [ ] Technical feasibility validated within appetite (not just "possible" — possible *in 6 weeks*)
+- [ ] Technical feasibility validated within appetite (not just "possible" — possible *in the allocated sessions*)
 - [ ] Thin-tailed risk profile achieved
 - [ ] **Status: Shape Go** — a builder could pick this up and know what to do
 
@@ -205,4 +206,4 @@ Raw idea arrives
 | **Shaping without codebase analysis** | Pitch reads well but hides technical unknowns. #1 failure mode. (See `07-pitfalls.md`) |
 | **Jumping to solutions before framing** | Solution is unanchored. No way to evaluate fit or make trade-offs. Leads to scope spirals and cancelled projects. |
 | **Leaving rabbit holes as TBD** | Every unresolved rabbit hole detonates during build. Zero TBDs allowed. |
-| **Describing UI concepts instead of wiring** | Pitch shows what it looks like but not how it connects. Builders discover missing plumbing mid-cycle. |
+| **Describing UI concepts instead of wiring** | Pitch shows what it looks like but not how it connects. Builders discover missing plumbing mid-build. |

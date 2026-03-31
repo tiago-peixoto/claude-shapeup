@@ -361,7 +361,7 @@ For Big Batch features, use the full template with affordance tables and fit che
 
 ## Appetite
 
-<Small Batch (X weeks) / Big Batch (6 weeks)>
+<Small Batch (1 session) / Medium Batch (2-3 sessions) / Big Batch (4-5 sessions)>
 
 ## Requirements (R)
 

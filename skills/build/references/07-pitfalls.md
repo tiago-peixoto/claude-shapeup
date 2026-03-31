@@ -30,7 +30,7 @@ An agent shaping a feature will default to describing *what* should exist (produ
 
 3. **Every rabbit hole is a time bomb.** Any rabbit hole left unresolved in the pitch WILL blow up during build. Agents must not leave rabbit holes as "TBD" — they must be patched, cut, or declared out of bounds.
 
-4. **High fidelity last.** Build raw and ugly first. Meet functional and interaction requirements. Style literally in the final days of the cycle. This is painting the walls after construction is done.
+4. **High fidelity last.** Build raw and ugly first. Meet functional and interaction requirements. Style in the final session. This is painting the walls after construction is done.
 
 ### Agent Checklist — Technical Depth
 
@@ -53,7 +53,7 @@ The book doesn't clearly distinguish between two separate work steps:
 - **Framing**: Defining the problem, the business value, and the desired outcome
 - **Shaping**: Designing the technical solution within the appetite
 
-When these blur together, projects go in circles, spiral in scope, or get cancelled mid-cycle ("shiny object syndrome") because there was never real conviction about what problem was being solved.
+When these blur together, projects go in circles, spiral in scope, or get cancelled mid-build ("shiny object syndrome") because there was never real conviction about what problem was being solved.
 
 ### Why Agents Are Especially Vulnerable
 
@@ -115,7 +115,7 @@ If shaped project work and reactive work (bugs, incidents, urgent requests, thir
 
 ### Why Agents Are Especially Vulnerable
 
-An agent managing a build cycle will encounter bug reports, urgent requests, and external blockers. Without explicit separation rules, the agent will treat everything as equal priority — interleaving reactive fixes with shaped project work, losing focus, and putting the cycle at risk.
+An agent managing a build will encounter bug reports, urgent requests, and external blockers. Without explicit separation rules, the agent will treat everything as equal priority — interleaving reactive fixes with shaped project work, losing focus, and putting the build at risk.
 
 ### Rules for Agents
 
@@ -125,12 +125,12 @@ An agent managing a build cycle will encounter bug reports, urgent requests, and
 
    | Type | Criteria | Handling |
    |------|----------|----------|
-   | **Shaped project work** | Has a pitch. Has been bet on. Has a cycle deadline. | Execute within cycle. Full focus. |
-   | **Urgent / on-fire** | Active incident. Upset stakeholder. System down. | Separate capacity. Kanban-style. Track separately. |
-   | **Non-urgent bug** | Bug that isn't on fire. No immediate stakeholder pressure. | Batch for cool-down or rainy day. Do NOT mix into cycle. |
-   | **Third-party dependent** | Waiting on external response. Agent doesn't control timeline. | Kanban, not Shape Up. Don't put in a cycle because you can't guarantee the deadline. |
+   | **Shaped project work** | Has a package. Has been bet on. Has allocated sessions. | Execute within sessions. Full focus. |
+   | **Urgent / on-fire** | Active incident. Upset stakeholder. System down. | Handle separately. Track separately. |
+   | **Non-urgent bug** | Bug that isn't on fire. No immediate stakeholder pressure. | Batch for later. Do NOT mix into active build sessions. |
+   | **Third-party dependent** | Waiting on external response. Agent doesn't control timeline. | Track separately. Don't mix into build because you can't guarantee the timeline. |
 
-3. **Never let reactive work silently consume cycle time.** If reactive work is eating into a cycle, surface it explicitly. The cycle scope must be adjusted or the reactive work must be deferred.
+3. **Never let reactive work silently consume session time.** If reactive work is eating into a build, surface it explicitly. The build scope must be adjusted or the reactive work must be deferred.
 
 4. **Make capacity allocation explicit.** If a team (or agent) splits time between project and reactive work, define the split upfront (e.g., "80% project, 20% reactive buffer"). Measure actuals against plan.
 
@@ -142,6 +142,6 @@ An agent managing a build cycle will encounter bug reports, urgent requests, and
 |---------|---------------|-----|
 | **Undershaped work** | Agent produces pitches that read well but skip technical validation | Require codebase analysis. Every rabbit hole resolved. Wiring, not styling. |
 | **Blurred framing/shaping** | Agent jumps to solutions before locking the problem | Enforce Frame Go checkpoint before any solution design |
-| **Mixed work streams** | Agent interleaves bugs and urgent requests with cycle work | Classify all incoming work. Separate streams. Explicit capacity. |
+| **Mixed work streams** | Agent interleaves bugs and urgent requests with build work | Classify all incoming work. Separate streams. Explicit capacity. |
 
 These aren't edge cases — they are the most common failure modes in Shape Up adoption. Agents must have explicit guardrails against all three.

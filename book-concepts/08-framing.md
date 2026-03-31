@@ -8,7 +8,7 @@ Source: Ryan Singer, "Framing" (Apr 2022) — an evolution of Shape Up based on 
 
 ## Why Framing Exists
 
-The original Shape Up book placed the Betting Table after shaping. This created a problem: shapers couldn't justify spending time on rigorous technical shaping without knowing if the business valued the problem. The result was **undershaped work** — pitches that sold the idea but lacked technical rigor, leading to blown-up build cycles.
+The original Shape Up book placed the Betting Table after shaping. This created a problem: shapers couldn't justify spending time on rigorous technical shaping without knowing if the business valued the problem. The result was **undershaped work** — pitches that sold the idea but lacked technical rigor, leading to blown-up builds.
 
 Framing solves this by establishing business commitment *before* shaping begins. It separates two distinct questions:
 
@@ -60,7 +60,7 @@ A framing session involves a shaper and a product/business person investigating 
 
 A **well-framed problem** that can be stated as:
 
-> "If we can shape this into something doable and execute within [X weeks], that will be meaningful to us."
+> "If we can shape this into something doable and execute within [N sessions], that will be meaningful to us."
 
 This is a **commitment to spend time shaping**, but NOT yet a commitment to build.
 
@@ -87,7 +87,7 @@ Raw Idea → Frame → [Frame Go] → Shape → Package → [Betting Table] → 
 | **Candidate** | Raw idea, feature request, complaint | None yet | — | — |
 | **Framing** | Candidate | Problem investigation, business value analysis, segment analysis | Well-framed problem with appetite | **Frame Go**: Business says "this matters, invest in shaping" |
 | **Shaping** | Framed problem | Technical solution design, de-risking, codebase analysis | Package (problem + solution + appetite + rabbit holes + no-gos) | **Shape Go**: Solution is viable, all unknowns resolved |
-| **Betting Table** | Package | Strategic evaluation | Bet or pass | **Bet**: Commit team for one cycle |
+| **Betting Table** | Package | Strategic evaluation | Bet or pass | **Bet**: Commit allocated sessions |
 | **Building** | Bet package | Execution | Deployed software | Ship |
 
 ### Terminology Update
@@ -109,7 +109,7 @@ An agent given a feature request will default to designing a solution immediatel
 - Shapes work that the business may not value
 - Produces solutions disconnected from business context
 - Can't make intelligent scope trade-offs (doesn't know which customer segment matters or why)
-- Risks the "shiny object" failure — work that gets cancelled mid-cycle because there was never real conviction
+- Risks the "shiny object" failure — work that gets cancelled mid-build because there was never real conviction
 
 ### Agent Framing Protocol
 
@@ -136,14 +136,14 @@ When an agent receives a raw idea or feature request:
    → Reject grab-bags (must be a single problem)
 
 5. SET appetite
-   → How much time does this deserve? (Small Batch 1-2 weeks / Big Batch 6 weeks)
+   → How many sessions does this deserve? (Small Batch 1 session / Medium Batch 2-3 sessions / Big Batch 4-5 sessions)
    → The appetite constrains everything downstream
 
 6. PRODUCE the Frame
    → Problem statement (specific, story-based)
    → Affected segment and business value
    → Appetite
-   → Statement: "If we can build [X] within [appetite], it will [business outcome]"
+   → Statement: "If we can build [X] within [N sessions], it will [business outcome]"
 
 7. REQUEST Frame Go
    → Present frame to human decision-maker
@@ -169,10 +169,10 @@ When an agent receives a raw idea or feature request:
 [Data points, query results, support ticket counts, customer quotes — anything that quantifies the problem.]
 
 ## Appetite
-[Small Batch X weeks / Big Batch 6 weeks]
+[Small Batch (1 session) / Medium Batch (2-3 sessions) / Big Batch (4-5 sessions)]
 
 ## Frame Statement
-"If we can shape this into something doable and execute within [appetite], it will [specific business outcome]."
+"If we can shape this into something doable and execute within [N sessions], it will [specific business outcome]."
 
 ## Status: Candidate / Frame Go / Rejected
 ```

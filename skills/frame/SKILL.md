@@ -107,9 +107,10 @@ questions at once — adapt based on answers. Typical flow:
 - "Is there urgency? What's competing for attention right now?"
 
 **Round 4 — Appetite** (1 question):
-- "How much time does this deserve?" with options:
-  - Small Batch: 1-2 weeks (quick win, contained scope)
-  - Big Batch: 6 weeks (significant feature, cross-cutting change)
+- "How many sessions does this deserve?" with options:
+  - Small Batch: 1 session (quick win, contained scope)
+  - Medium Batch: 2-3 sessions (moderate scope, clear boundaries)
+  - Big Batch: 4-5 sessions (significant feature, cross-cutting change)
   - Not sure yet (help me think through it)
 
 **Grab-bag check**: If the idea sounds like "redesign X" or "X 2.0" without a single specific
@@ -150,7 +151,7 @@ user quotes, frequency of occurrence. If no hard data, state assumptions explici
 
 ## Appetite
 
-<Small Batch (X weeks) or Big Batch (6 weeks)>
+<Small Batch (1 session) / Medium Batch (2-3 sessions) / Big Batch (4-5 sessions)>
 
 ## Frame Statement
 
@@ -193,5 +194,5 @@ user quotes, frequency of occurrence. If no hard data, state assumptions explici
 - **Jumping to solutions**: If you notice yourself writing "we could build..." — STOP. You're framing, not shaping.
 - **Accepting grab-bags**: "Redesign the dashboard" is not a problem. Insist on one specific pain point.
 - **Skipping business value**: Every frame needs a reason the business should care. "It would be nice" is not enough.
-- **Vague appetite**: "A few weeks maybe" is not an appetite. Pick Small Batch or Big Batch.
+- **Vague appetite**: "Some sessions maybe" is not an appetite. Pick Small Batch, Medium Batch, or Big Batch.
 - **Not establishing baseline**: Without knowing what users do TODAY, you can't judge if a solution is an improvement.

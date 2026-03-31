@@ -1,7 +1,7 @@
 ---
 name: build
 description: >
-  Use this skill to execute a shaped Package within a build cycle. Implements the full building process:
+  Use this skill to execute a shaped Package within a build session. Implements the full building process:
   orient on the codebase, pick a first piece (core/small/novel), integrate vertically with TDD,
   discover and map scopes, track progress with hill charts, and scope hammer when capacity runs low.
   For web projects, verifies with browser automation. Writes handover documents for multi-session
@@ -364,4 +364,4 @@ When all must-haves are complete and all scopes are downhill or done:
 - **Skipping tests**: TDD is not optional. Tests define "done" and prevent regressions.
 - **Pushing through when uphill at session end**: That's a shaping failure. Hand over, don't heroics.
 - **Organizing by role**: Not "designer tasks" and "programmer tasks". Organize by scope.
-- **Mixing reactive work**: Bugs and incidents are separate. Don't let them eat the cycle.
+- **Mixing reactive work**: Bugs and incidents are separate. Don't let them eat the build sessions.

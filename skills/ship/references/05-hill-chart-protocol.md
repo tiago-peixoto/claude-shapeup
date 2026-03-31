@@ -84,9 +84,9 @@ Like journalism (most important info first), tackle work in this order:
 - Most unknowns first
 - Routine / least risky last
 
-### End-of-cycle target state
+### End-of-build target state
 
-By cycle end:
+By final session:
 - Important scopes → done or nearly done
 - Risky scopes → over the hill and completed
 - Only nice-to-haves and low-risk work → remaining (and cuttable)
@@ -109,7 +109,7 @@ The hill chart enables status without asking. Self-serve progress visibility.
 
 Instead of "How's it going?", the chart enables specific questions:
 - "Scope X has been uphill for a while. What's the unknown?"
-- "Everything is downhill. Are we on track to ship by cycle end?"
+- "Everything is downhill. Are we on track to ship by the final session?"
 - "Scope Y slid back. What happened?"
 
 ---
