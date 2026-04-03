@@ -283,7 +283,7 @@ Write the Package to `.shapeup/<NNN-slug-framing>/package.md`.
 
 **Choose the template based on appetite:**
 
-#### Small Batch Template (1-2 weeks)
+#### Small Batch Template (1 session)
 
 For Small Batch features, use this condensed format. Affordance tables are replaced with a
 simpler changes table, but the fit check is kept inline to catch solution gaps.
@@ -294,7 +294,7 @@ simpler changes table, but the fit check is kept inline to catch solution gaps.
 **Feature ID**: <NNN>
 **Created**: <date>
 **Frame**: <link to frame.md>
-**Appetite**: Small Batch (1-2 weeks)
+**Appetite**: Small Batch (1 session)
 **Status**: Shaping
 
 ---
@@ -341,7 +341,7 @@ simpler changes table, but the fit check is kept inline to catch solution gaps.
 ## Status: Shaping
 ```
 
-#### Big Batch Template (6 weeks)
+#### Big Batch Template (4-5 sessions)
 
 For Big Batch features, use the full template with affordance tables and fit check matrix.
 

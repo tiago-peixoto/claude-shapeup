@@ -307,7 +307,7 @@ When all must-haves are complete and all scopes are downhill or done:
    # Build Summary — <Feature Name>
 
    **Feature ID**: <NNN>
-   **Build cycles**: <how many>
+   **Build sessions**: <how many>
    **Date completed**: <date>
 
    ## What Was Built
