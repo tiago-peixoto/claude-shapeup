@@ -300,7 +300,8 @@ When all must-haves are complete and all scopes are downhill or done:
 2. **Update hill chart** — all scopes should show ✓ or ▼ near done
 
 3. **Write build summary** for the ship phase.
-   This is a raw handoff document — ship will refine it into the formal `decisions.md`.
+   This is the builder's raw notes — ship uses it as *input* (alongside `frame.md` and `package.md`)
+   to produce the formal `decisions.md`. Keep it factual; ship handles the analysis.
    Write `<feature-dir>/build-summary.md`:
    ```markdown
    # Build Summary — <Feature Name>
@@ -311,10 +312,6 @@ When all must-haves are complete and all scopes are downhill or done:
 
    ## What Was Built
    - <Bullet list of implemented functionality>
-
-   ## Key Decisions Made During Build
-   - <Decision>: <Rationale — why this approach over alternatives>
-   - <Decision>: <Rationale>
 
    ## What Was Cut (Scope Hammering)
    - <Item>: <Why acceptable to cut>
