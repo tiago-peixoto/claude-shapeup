@@ -19,18 +19,44 @@ if grep -qiE '(^|[^a-zA-Z])(TBD|TODO|FIXME)([^a-zA-Z]|$)' "$PACKAGE"; then
   ISSUES=$((ISSUES + 1))
 fi
 
-# Check required sections exist
-for section in "## Problem" "## Appetite" "## Requirements" "## Solution" "## Fit Check" "## Rabbit Holes" "## No-Gos"; do
+# Detect Small Batch vs Big Batch
+IS_SMALL_BATCH=false
+if grep -q "Small Batch" "$PACKAGE"; then
+  IS_SMALL_BATCH=true
+fi
+
+# Check required sections (common to both templates)
+for section in "## Problem" "## Rabbit Holes" "## No-Gos"; do
   if ! grep -q "$section" "$PACKAGE"; then
     echo "MISSING SECTION: $section"
     ISSUES=$((ISSUES + 1))
   fi
 done
 
-# Check for at least one Element
-if ! grep -q "### Element:" "$PACKAGE"; then
-  echo "WARNING: No solution elements defined (### Element:)"
-  ISSUES=$((ISSUES + 1))
+if [ "$IS_SMALL_BATCH" = true ]; then
+  # Small Batch requires: Requirements, Solution, Changes table, Fit check, Technical Validation
+  for section in "## Requirements" "## Solution" "## Technical Validation"; do
+    if ! grep -q "$section" "$PACKAGE"; then
+      echo "MISSING SECTION: $section"
+      ISSUES=$((ISSUES + 1))
+    fi
+  done
+  if ! grep -q "### Changes" "$PACKAGE" && ! grep -qi "Fit check" "$PACKAGE"; then
+    echo "WARNING: Small Batch package missing Changes table or inline Fit check"
+    ISSUES=$((ISSUES + 1))
+  fi
+else
+  # Big Batch requires: Appetite, Requirements, Solution, Fit Check, Elements
+  for section in "## Appetite" "## Requirements" "## Solution" "## Fit Check"; do
+    if ! grep -q "$section" "$PACKAGE"; then
+      echo "MISSING SECTION: $section"
+      ISSUES=$((ISSUES + 1))
+    fi
+  done
+  if ! grep -q "### Element:" "$PACKAGE"; then
+    echo "WARNING: No solution elements defined (### Element:)"
+    ISSUES=$((ISSUES + 1))
+  fi
 fi
 
 # Check for unresolved flagged unknowns (⚠️)

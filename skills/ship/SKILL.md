@@ -61,10 +61,10 @@ Your job:
    ```bash
    cat <feature-dir>/build-summary.md 2>/dev/null
    ```
-   - **If `build-summary.md` exists**: Read it + `frame.md` only.
-     The build summary contains decisions, cuts, files changed, and lessons.
-     Only read `package.md` if you need to cross-reference the original solution design
-     (e.g., to compare what was planned vs what was built for ADRs).
+   - **If `build-summary.md` exists**: Read it + `frame.md` + `package.md`.
+     The build summary contains cuts, files changed, and lessons learned.
+     The package is needed to compare what was planned vs what was built for ADRs.
+     Skip handovers, scopes, and hillchart — the summary covers them.
    - **If `build-summary.md` does NOT exist** (older features): Fall back to reading all:
      - `frame.md` — original problem and business value
      - `package.md` — shaped solution and technical wiring

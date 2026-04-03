@@ -150,6 +150,10 @@ This is the most critical step. Undershaped work is the #1 failure mode.
 Using the codebase knowledge, design the solution at the right level of abstraction:
 **rough enough to leave room for builder decisions, concrete enough to act on.**
 
+> **Small Batch (1-2 weeks)?** Skip affordance tables. For each element, document What/Where/Wiring/Affected code/Status
+> (same as below), then use the simpler **Changes table** format from the Small Batch template in Step 7.
+> Jump to Step 5 when done.
+
 **For flows and interactions — use Breadboarding:**
 - Define Places (screens, views, endpoints)
 - Define Affordances (buttons, fields, API parameters)
@@ -208,6 +212,10 @@ This is the bridge between "what the user sees" and "what the code does":
 - "Are there constraints I'm missing?"
 
 ### Step 5: Fit Check (R × Solution Matrix)
+
+> **Small Batch?** Skip the full matrix. Instead, verify inline: every R from Step 2 maps to at least one
+> row in your Changes table. Write `**Fit check**: Every R above maps to at least one change. No gaps.`
+> in the Package. If any R has no matching change, add one or mark the R as Out. Then proceed to Step 6.
 
 Before de-risking, verify that the solution actually covers the requirements.
 Build a binary matrix — every R must map to at least one solution element:
