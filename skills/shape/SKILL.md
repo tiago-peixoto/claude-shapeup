@@ -281,7 +281,7 @@ If any TBD/TODO/FIXME strings remain, resolve them before proceeding.
 
 Write the Package to `.shapeup/<NNN-slug-framing>/package.md`.
 
-**Choose the template based on appetite:**
+**Choose the template based on appetite.** Medium Batch (2-3 sessions) uses the Big Batch template.
 
 #### Small Batch Template (1 session)
 
