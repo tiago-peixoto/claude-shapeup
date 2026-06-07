@@ -100,6 +100,50 @@ assert_output_contains "$OUTPUT" "must_haves_remaining=0" "0 must-haves without 
 rm -rf "$TMPDIR"
 
 echo ""
+echo "=== Session Budget: behavioral-test syntax ([RED]/[GREEN]) ==="
+
+TMPDIR=$(mktemp -d)
+mkdir -p "$TMPDIR/scopes"
+echo "**Appetite**: Medium Batch (2-3 sessions)" > "$TMPDIR/package.md"
+cat > "$TMPDIR/scopes/scope-filtering.md" <<'SCOPE'
+## Behaviors (must-have)
+- [GREEN] User filters invoices by date
+- [RED] User exports the filtered list
+## Behaviors (nice-to-have, ~)
+- [RED] ~ User can save a filter preset
+- [RED] ~ User reorders columns
+SCOPE
+OUTPUT=$(bash "$BUDGET" "$TMPDIR")
+assert_output_contains "$OUTPUT" "must_haves_remaining=1" "counts 1 RED must-have behavior as remaining"
+assert_output_contains "$OUTPUT" "nice_to_haves=2" "counts 2 RED nice-to-have behaviors"
+rm -rf "$TMPDIR"
+
+echo ""
+echo "=== Session Budget: legacy + new syntax coexist ==="
+
+TMPDIR=$(mktemp -d)
+mkdir -p "$TMPDIR/scopes"
+echo "**Appetite**: Big Batch (4-5 sessions)" > "$TMPDIR/package.md"
+cat > "$TMPDIR/scopes/scope-legacy.md" <<'SCOPE'
+## Must-Haves
+- [x] Old done task
+- [ ] Old remaining task
+## Nice-to-Haves (~)
+- [ ] ~ Old nice thing
+SCOPE
+cat > "$TMPDIR/scopes/scope-modern.md" <<'SCOPE'
+## Behaviors (must-have)
+- [GREEN] User sees the new behavior
+- [RED] User sees the other new behavior
+## Behaviors (nice-to-have, ~)
+- [RED] ~ Modern nice thing
+SCOPE
+OUTPUT=$(bash "$BUDGET" "$TMPDIR")
+assert_output_contains "$OUTPUT" "must_haves_remaining=2" "sums 1 legacy + 1 new RED must-have"
+assert_output_contains "$OUTPUT" "nice_to_haves=2" "sums 1 legacy + 1 new RED nice-to-have"
+rm -rf "$TMPDIR"
+
+echo ""
 echo "=== Results ==="
 echo "  PASS: $PASS"
 echo "  FAIL: $FAIL"

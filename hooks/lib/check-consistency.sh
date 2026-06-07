@@ -6,8 +6,9 @@
 #           pre-ship        — strict check suitable for the build→ship gate
 #
 # What it checks:
-#   * Every scope's must-have checkboxes are either `[x]` or cut (moved under a
-#     "Cut" heading, or rewritten with leading `~` nice-to-have marker).
+#   * Every scope's must-haves are satisfied (`[x]` checkbox or `[GREEN]`
+#     behavioral test) or cut (moved under a "Cut" heading, or rewritten with a
+#     leading `~` nice-to-have marker). Unsatisfied = `[ ]` or `[RED]`.
 #   * The hill chart mentions every scope that exists as a file, and vice versa.
 #   * Scopes marked `✓ Done` in the hill chart have all must-haves checked.
 #   * Scopes marked `▲ Uphill` or `▼ Downhill` are NOT also listed as `✓ Done`.
@@ -56,9 +57,9 @@ while IFS= read -r name; do
   [ -z "$name" ] && continue
   f="$SCOPES_DIR/scope-${name}.md"
 
-  # Count unchecked must-haves (must-have = line starts with "- [ ]" and does
-  # NOT contain a leading ~ marker before the task text).
-  unchecked=$(grep -E '^- \[ \]' "$f" 2>/dev/null | grep -vE '^- \[ \] *~' || true)
+  # Count unsatisfied must-haves (line starts with "- [ ]" legacy or "- [RED]"
+  # behavioral test, and does NOT carry a leading ~ nice-to-have marker).
+  unchecked=$(grep -E '^- (\[ \]|\[RED\])' "$f" 2>/dev/null | grep -vE '^- (\[ \]|\[RED\]) *~' || true)
   unchecked_count=$(echo "$unchecked" | sed '/^$/d' | wc -l | tr -d ' ')
 
   # Detect hill position declared in the scope file
@@ -147,7 +148,7 @@ case "$MODE" in
     while IFS= read -r sn; do
       [ -z "$sn" ] && continue
       f="$SCOPES_DIR/scope-${sn}.md"
-      unchecked=$(grep -E '^- \[ \]' "$f" 2>/dev/null | grep -vE '^- \[ \] *~' | wc -l | tr -d ' ')
+      unchecked=$(grep -E '^- (\[ \]|\[RED\])' "$f" 2>/dev/null | grep -vE '^- (\[ \]|\[RED\]) *~' | wc -l | tr -d ' ')
       unchecked="${unchecked:-0}"
       if [ "$unchecked" -gt 0 ]; then
         fail "scope '$sn' has $unchecked unchecked must-have(s) — check them or mark cut (~)"

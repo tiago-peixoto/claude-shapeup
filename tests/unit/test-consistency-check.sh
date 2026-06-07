@@ -130,6 +130,139 @@ bash "$CHECK" "$BASE" pre-ship >/dev/null 2>&1 && fail "pre-ship should block mi
 rm -rf "$TMPDIR"
 
 echo ""
+echo "=== Consistency Check: behavioral-test syntax ([RED]/[GREEN]) ==="
+
+# audit: ✓ Done scope with a RED must-have behavior — contradiction, must FAIL
+TMPDIR=$(mktemp -d)
+BASE="$TMPDIR/2026-04-20-behave-building"
+seed_feature "$BASE"
+cat > "$BASE/scopes/scope-foo.md" <<'EOF'
+# Scope: foo
+## Hill Position
+✓ Done
+## Behaviors (must-have)
+- [GREEN] User sees the filtered list update without reload
+- [RED] User sees a "no results" message when nothing matches
+EOF
+OUTPUT=$(bash "$CHECK" "$BASE" audit)
+echo "$OUTPUT" | grep -q "claims ✓ Done but has" && pass "audit flags ✓ Done scope with a RED must-have behavior" || fail "audit should flag a done scope with a RED must-have behavior"
+rm -rf "$TMPDIR"
+
+# audit: downhill scope with a RED must-have behavior — must NOT fail
+TMPDIR=$(mktemp -d)
+BASE="$TMPDIR/2026-04-20-behave-building"
+seed_feature "$BASE"
+cat > "$BASE/scopes/scope-foo.md" <<'EOF'
+# Scope: foo
+## Hill Position
+▼ Downhill
+## Behaviors (must-have)
+- [GREEN] User filters invoices by date
+- [RED] User clears all filters at once
+EOF
+bash "$CHECK" "$BASE" audit >/dev/null 2>&1 && pass "audit does not fail a downhill scope with a RED must-have behavior" || fail "audit should not fail on a downhill scope"
+rm -rf "$TMPDIR"
+
+# pre-ship: a RED must-have behavior must BLOCK the ship
+TMPDIR=$(mktemp -d)
+BASE="$TMPDIR/2026-04-20-behave-red-building"
+seed_feature "$BASE"
+cat > "$BASE/hillchart.md" <<'EOF'
+# Hill Chart
+## Scopes
+  ✓ foo — Done
+EOF
+cat > "$BASE/scopes/scope-foo.md" <<'EOF'
+# Scope: foo
+## Hill Position
+✓ Done
+## Behaviors (must-have)
+- [GREEN] User filters invoices by date
+- [RED] User exports the filtered list
+EOF
+bash "$CHECK" "$BASE" pre-ship >/dev/null 2>&1 && fail "pre-ship should block on a RED must-have behavior" || pass "pre-ship blocks on a RED must-have behavior"
+rm -rf "$TMPDIR"
+
+# pre-ship: all must-have behaviors GREEN, nice-to-have RED deferred — must PASS
+TMPDIR=$(mktemp -d)
+BASE="$TMPDIR/2026-04-20-behave-green-building"
+seed_feature "$BASE"
+cat > "$BASE/hillchart.md" <<'EOF'
+# Hill Chart
+## Scopes
+  ✓ foo — Done
+EOF
+cat > "$BASE/scopes/scope-foo.md" <<'EOF'
+# Scope: foo
+## Hill Position
+✓ Done
+## Behaviors (must-have)
+- [GREEN] User filters invoices by date
+- [GREEN] User exports the filtered list
+## Behaviors (nice-to-have, ~)
+- [RED] ~ User can save a filter preset
+EOF
+bash "$CHECK" "$BASE" pre-ship >/dev/null 2>&1 && pass "pre-ship passes when must-have behaviors are GREEN and a nice-to-have is deferred" || fail "pre-ship should accept deferred RED nice-to-haves"
+rm -rf "$TMPDIR"
+
+echo ""
+echo "=== Consistency Check: legacy + new syntax coexist (back-compat) ==="
+
+# A feature with one legacy [x] scope and one [GREEN] scope — pre-ship passes
+TMPDIR=$(mktemp -d)
+BASE="$TMPDIR/2026-04-20-mixed-building"
+seed_feature "$BASE"
+cat > "$BASE/hillchart.md" <<'EOF'
+# Hill Chart
+## Scopes
+  ✓ legacy — Done
+  ✓ modern — Done
+EOF
+cat > "$BASE/scopes/scope-legacy.md" <<'EOF'
+# Scope: legacy
+## Hill Position
+✓ Done
+## Must-Haves
+- [x] Old-style checkbox task
+EOF
+cat > "$BASE/scopes/scope-modern.md" <<'EOF'
+# Scope: modern
+## Hill Position
+✓ Done
+## Behaviors (must-have)
+- [GREEN] User sees the new behavior
+EOF
+bash "$CHECK" "$BASE" pre-ship >/dev/null 2>&1 && pass "pre-ship passes a feature mixing legacy [x] and new [GREEN] scopes" || fail "pre-ship should accept legacy and new syntax together"
+rm -rf "$TMPDIR"
+
+# Same mixed feature but the modern scope has a RED behavior — pre-ship blocks
+TMPDIR=$(mktemp -d)
+BASE="$TMPDIR/2026-04-20-mixed-red-building"
+seed_feature "$BASE"
+cat > "$BASE/hillchart.md" <<'EOF'
+# Hill Chart
+## Scopes
+  ✓ legacy — Done
+  ✓ modern — Done
+EOF
+cat > "$BASE/scopes/scope-legacy.md" <<'EOF'
+# Scope: legacy
+## Hill Position
+✓ Done
+## Must-Haves
+- [x] Old-style checkbox task
+EOF
+cat > "$BASE/scopes/scope-modern.md" <<'EOF'
+# Scope: modern
+## Hill Position
+✓ Done
+## Behaviors (must-have)
+- [RED] User sees the new behavior
+EOF
+bash "$CHECK" "$BASE" pre-ship >/dev/null 2>&1 && fail "pre-ship should block when a new-syntax scope has a RED must-have" || pass "pre-ship blocks a RED must-have even alongside legacy scopes"
+rm -rf "$TMPDIR"
+
+echo ""
 echo "=== Results ==="
 echo "  PASS: $PASS"
 echo "  FAIL: $FAIL"

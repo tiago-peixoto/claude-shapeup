@@ -106,6 +106,35 @@ fi
 rm -rf "$TMP"
 
 echo ""
+echo "=== commit-gate (library): Done-but-RED behavior blocks ==="
+
+TMP=$(mktemp -d)
+make_repo "$TMP"
+FEAT=$(seed_feature "$TMP" "2026-04-20-behaveleak-building")
+cat > "$FEAT/hillchart.md" <<'EOF'
+# Hill Chart
+## Scopes
+  ✓ foo — Done
+EOF
+cat > "$FEAT/scopes/scope-foo.md" <<'EOF'
+# Scope: foo
+## Hill Position
+✓ Done
+## Behaviors (must-have)
+- [GREEN] User filters invoices by date
+- [RED] User exports the filtered list
+EOF
+(cd "$TMP" && git add .shapeup)
+OUT=$(bash "$GATE_LIB" "$TMP" 2>&1)
+status=$?
+if [ "$status" -ne 0 ] && echo "$OUT" | grep -q "claims ✓ Done"; then
+  pass "blocks when scope claims Done with a RED must-have behavior"
+else
+  fail "should block Done-but-RED behavior (status=$status, out=$OUT)"
+fi
+rm -rf "$TMP"
+
+echo ""
 echo "=== commit-gate (library): hillchart/scope mismatch blocks ==="
 
 TMP=$(mktemp -d)

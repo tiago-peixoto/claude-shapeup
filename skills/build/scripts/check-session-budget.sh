@@ -36,15 +36,17 @@ fi
 # Count outstanding nice-to-haves across all scope files
 NICE_TO_HAVES=0
 if [ -d "$FEATURE_DIR/scopes" ]; then
-  # Count unchecked nice-to-have tasks (lines with ~ that are not checked off)
-  NICE_TO_HAVES=$(grep -r '\- \[ \] ~' "$FEATURE_DIR/scopes/" 2>/dev/null | wc -l | tr -d ' ')
+  # Count unsatisfied nice-to-have behaviors/tasks marked ~ — legacy `- [ ] ~`
+  # or behavioral-test `- [RED] ~`. GREEN/checked ones are done, not counted.
+  NICE_TO_HAVES=$(grep -rE '\- (\[ \]|\[RED\]) ~' "$FEATURE_DIR/scopes/" 2>/dev/null | wc -l | tr -d ' ')
 fi
 
 # Count remaining must-haves
 MUST_HAVES_REMAINING=0
 if [ -d "$FEATURE_DIR/scopes" ]; then
-  # Count unchecked tasks that are NOT nice-to-haves
-  MUST_HAVES_REMAINING=$(grep -r '\- \[ \]' "$FEATURE_DIR/scopes/" 2>/dev/null | grep -v '~' | wc -l | tr -d ' ')
+  # Count unsatisfied must-haves that are NOT nice-to-haves — legacy `- [ ]`
+  # or behavioral-test `- [RED]`. GREEN/checked ones are done, not counted.
+  MUST_HAVES_REMAINING=$(grep -rE '\- (\[ \]|\[RED\])' "$FEATURE_DIR/scopes/" 2>/dev/null | grep -v '~' | wc -l | tr -d ' ')
 fi
 
 echo "sessions_used=$SESSIONS_USED"
