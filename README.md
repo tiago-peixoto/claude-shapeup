@@ -14,7 +14,7 @@ Backlogs are where ideas go to die. Shape Up replaces the infinite todo list wit
 |-------|-------------|------|
 | `/shapeup:frame` | Turns a vague idea into a locked problem statement with appetite | Frame Go |
 | `/shapeup:shape` | Deep codebase analysis → requirements, affordance tables, fit check matrix, Package | Shape Go |
-| `/shapeup:build` | TDD, hill charts, scope hammering, handovers for multi-session work | Ready to Ship |
+| `/shapeup:build` | TDD via RED/GREEN behavioral tests, hill charts, scope hammering, handovers for multi-session work | Ready to Ship |
 | `/shapeup:ship` | Extracts ADRs, updates architecture docs, archives the feature folder | Done |
 
 Each skill is self-contained with its own reference docs — no external dependencies, no magic.
@@ -55,6 +55,11 @@ keys are **collision-free across teammates**: two developers can frame features 
 branches without colliding on a shared counter. If two teammates pick the same slug on the
 same day, the second folder gets a 4-hex disambiguator (`2026-04-20-csv-import-bc89-framing`).
 
+Inside a `-building` feature, each `scopes/<scope>.md` tracks **user-noticeable behaviors** as
+`[RED]` → `[GREEN]` (vertical slices the user can observe) rather than technical task
+checkboxes. A scope is done when its must-have behaviors are `[GREEN]`. Legacy `[ ]`/`[x]`
+scope files are still accepted for one release.
+
 Invoke downstream skills with any of these key forms:
 
 - Full date-slug: `/shapeup:build 2026-04-20-csv-import`
@@ -63,22 +68,29 @@ Invoke downstream skills with any of these key forms:
 
 ## Hooks
 
-The plugin installs two hooks:
+The plugin installs three hooks:
 
 - **`phase-guard.sh`** (UserPromptSubmit) — blocks `/shape`, `/build`, `/ship` when gates
   haven't been passed. Resolves any accepted key form to the correct feature folder and
   verifies Frame Go / Shape Go / `build-summary.md` exists.
 - **`ripple-check.sh`** (PostToolUse) — watches `.shapeup/**/*.md` edits and nudges the
   agent when a change to one document likely affects another. Advisory only.
+- **`commit-gate.sh`** (PreToolUse) — intercepts `git commit` and blocks a scope-completion
+  commit when the scope files, hill chart, and behavior states disagree. Runs the consistency
+  audit on the staged `.shapeup/` diff so drift can't be committed.
 
 ## Verification Scripts
 
-Two shared scripts back the "trust but verify" pattern that shape/build/ship use:
+Shared libraries under `hooks/lib/` back the "trust but verify" pattern that shape/build/ship
+and the commit gate use:
 
-- **`hooks/lib/resolve-feature.sh`** — accepts any key form, returns the feature folder path.
-- **`hooks/lib/check-consistency.sh`** — audits a feature folder for drift between scope
-  checkboxes, hill chart symbols, and the pre-ship gate. Skills call it before marking a
-  scope done and as the gate into `/ship`; FAILs must be resolved, not silenced.
+- **`resolve-feature.sh`** — accepts any key form, returns the feature folder path.
+- **`check-consistency.sh`** — audits a feature folder for drift between scope **behavior
+  states** (`[RED]`/`[GREEN]`, or legacy checkboxes), hill chart symbols, and the pre-ship
+  gate. Skills call it before marking a scope done and as the gate into `/ship`; FAILs must be
+  resolved, not silenced.
+- **`commit-gate.sh`** — the gate library the `commit-gate` hook runs on the staged
+  `.shapeup/` diff (see Hooks above).
 
 ## Project Structure
 
@@ -90,26 +102,25 @@ hooks/
 ├── hooks.json
 ├── phase-guard.sh
 ├── ripple-check.sh
+├── commit-gate.sh
 └── lib/
     ├── resolve-feature.sh
-    └── check-consistency.sh
+    ├── check-consistency.sh
+    └── commit-gate.sh
+references/                      # 9 shared methodology docs (00-glossary … 08-framing)
 skills/
 ├── frame/
 │   ├── SKILL.md
-│   ├── scripts/init-feature.sh
-│   └── references/              # 9 methodology docs per skill
+│   └── scripts/init-feature.sh
 ├── shape/
 │   ├── SKILL.md
-│   ├── scripts/validate-package.sh
-│   └── references/
+│   └── scripts/validate-package.sh
 ├── build/
 │   ├── SKILL.md
-│   ├── scripts/update-hillchart.sh
-│   └── references/
+│   └── scripts/update-hillchart.sh
 └── ship/
     ├── SKILL.md
-    ├── scripts/regenerate-index.sh
-    └── references/
+    └── scripts/regenerate-index.sh
 ```
 
 ## Acknowledgments
