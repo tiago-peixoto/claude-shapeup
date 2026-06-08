@@ -200,7 +200,8 @@ Create Architecture Decision Records in `docs/decisions/`:
    echo "$PADDED"
    ```
 
-3. Write one ADR per major decision (typically 1-4 per feature).
+3. Write one ADR per major decision — meaning a decision that meets at least one of the three
+   criteria below (typically 1-4 per feature).
 
    **Write an ADR only if the decision meets at least one of these criteria:**
    - It involved choosing between 2+ materially different approaches
