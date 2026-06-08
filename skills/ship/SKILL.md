@@ -112,9 +112,11 @@ silently left half-done, because `build-summary.md` said "shipped" when the code
    FEATURE_DIR=$(bash "$PLUGIN_ROOT/hooks/lib/resolve-feature.sh" "$SHAPEUP_DIR" "$KEY")
    bash "$PLUGIN_ROOT/hooks/lib/check-consistency.sh" "$FEATURE_DIR" pre-ship
    ```
-   If any FAIL appears, STOP. Tell the user the feature is not actually ready to ship and
-   either send them back to `/build <KEY>` to finish the RED must-have behaviors or mark the
-   remaining behaviors cut (with `~`) and commit that decision before re-running `/ship`.
+   `pre-ship` blocks on: any scope still `▲ Uphill`, any uncut `[RED]` must-have behavior, or a
+   missing Frame Go / Shape Go status. If any FAIL appears, STOP. Tell the user the feature is
+   not actually ready to ship and either send them back to `/build <KEY>` to finish the RED
+   must-have behaviors or mark the remaining behaviors cut (with `~`) and commit that decision
+   before re-running `/ship`.
 
 ### Step 1: Load Feature
 
@@ -137,7 +139,7 @@ silently left half-done, because `build-summary.md` said "shipped" when the code
      - `package.md` — shaped solution and technical wiring
      - `hillchart.md` — final state of progress
      - `handover-*.md` — execution chronicle across sessions
-     - `scopes/*.md` — all scope files with task lists
+     - `scopes/*.md` — all scope files with behavioral tests (must-have / nice-to-have behaviors marked `[RED]`/`[GREEN]`)
      - `decisions.md` — if already exists from build phase
 
 3. Set up TodoWrite:
