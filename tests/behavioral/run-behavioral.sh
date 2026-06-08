@@ -62,6 +62,7 @@ usage() {
   echo "  $0 --all               Run all scenarios"
   echo "  $0 --ablate <name>     Run one scenario with a NEUTRAL prompt (must FAIL)"
   echo "  $0 --ablate-all        Negative control: every scenario must FAIL without its skill"
+  echo "  $0 --review            Print verdicts + judge reasons (and responses for non-PASS) from the last run"
   echo "  $0 --list              List available scenarios"
   echo ""
   echo "Available scenarios:"
@@ -321,6 +322,37 @@ case "$1" in
     for f in "$SCENARIOS_DIR"/*.md; do
       [ -f "$f" ] && echo "  - $(basename "$f" .md)"
     done
+    ;;
+  --review)
+    # Print each result's verdict + judge reason (and the agent response for
+    # non-PASS) from the last run, so a FAIL can be read instead of re-run.
+    shopt -s nullglob 2>/dev/null || true
+    found=0
+    for rf in "$RESULTS_DIR"/*.json; do
+      found=1
+      python3 - "$rf" <<'PY'
+import sys, json, re
+rf = sys.argv[1]
+try:
+    d = json.load(open(rf))
+except Exception:
+    sys.exit(0)
+jo = d.get("judge_output", "")
+m = re.search(r'"verdict"\s*:\s*"(\w+)"', jo)
+verdict = m.group(1).upper() if m else "UNPARSED"
+rm = re.search(r'"reason"\s*:\s*"([^"]+)"', jo)
+reason = rm.group(1) if rm else "(no reason parsed)"
+mode = d.get("mode", "normal")
+name = d.get("scenario", rf)
+print(f"\n=== {name} [{mode}] -> {verdict} ===")
+print(f"  reason: {reason}")
+if verdict != "PASS":
+    resp = (d.get("agent_response") or "").strip().replace("\n", "\n  ")
+    print("  --- agent response (first 1200 chars) ---")
+    print("  " + resp[:1200])
+PY
+    done
+    [ "$found" = "0" ] && echo "No results in $RESULTS_DIR — run a scenario first."
     ;;
   --help|-h)
     usage
