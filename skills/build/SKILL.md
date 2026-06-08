@@ -127,6 +127,11 @@ Before writing code, **dispatch an Explore subagent** to audit what the prior se
 tracking artifacts claim. Agents who skip this step treat a stale hill chart as ground truth,
 repeat work that was already done, or push through scopes that were already cut.
 
+**Output contract for the subagent:** instruct it to return a *bounded, structured discrepancy
+report* — only the discrepancies it finds, each with a `file_path:line_number` citation, never a
+dump of the full scope files or the code it inspected. Target ~1–2k tokens; if there are no
+discrepancies, it should say so in one line rather than narrate the audit.
+
 The subagent's job is to answer, with file_path:line_number citations:
 
 1. **Scope behavior state vs reality** — For every scope file in `<FEATURE_DIR>/scopes/`:
@@ -510,13 +515,6 @@ When the session must end with work remaining:
    **Date**: <date>
    **Feature**: <NNN> — <name>
 
-   ## Completed This Session
-   - <Scope>: <what was done>
-   - <Scope>: <what was done>
-
-   ## Current Hill Chart
-   <copy latest hillchart state>
-
    ## Next Session Should
    1. <Most important next scope to tackle>
    2. <Second priority>
@@ -525,6 +523,13 @@ When the session must end with work remaining:
    ## Known Unknowns
    - <Anything stuck uphill that needs investigation>
    - <Blockers or dependencies>
+
+   ## Completed This Session
+   - <Scope>: <what was done>
+   - <Scope>: <what was done>
+
+   ## Current Hill Chart
+   <copy latest hillchart state>
 
    ## Scope Hammering Decisions Made
    - <What was cut or marked nice-to-have and why>
