@@ -97,9 +97,11 @@ silently left half-done, because `build-summary.md` said "shipped" when the code
    echo "$FEATURE_DIR"
    ```
 
-2. Dispatch an Explore subagent with this question: for every must-have listed as `[x]` in
-   every `scope-*.md` file, is there corresponding code, tests, and (for web projects) a
-   working UI affordance? Report any `[x]` marked without evidence.
+2. Dispatch an Explore subagent with this question: for every must-have behavior marked
+   `[GREEN]` in every `scope-*.md` file, is there corresponding code, tests, and (for web
+   projects) a working UI affordance that makes the user-noticeable behavior observable?
+   Report any `[GREEN]` behavior marked without evidence (and any must-have behavior still
+   `[RED]`).
 
 3. Run the pre-ship consistency check:
    ```bash
@@ -111,8 +113,8 @@ silently left half-done, because `build-summary.md` said "shipped" when the code
    bash "$PLUGIN_ROOT/hooks/lib/check-consistency.sh" "$FEATURE_DIR" pre-ship
    ```
    If any FAIL appears, STOP. Tell the user the feature is not actually ready to ship and
-   either send them back to `/build <KEY>` to finish or mark the remaining tasks cut (with
-   `~`) and commit that decision before re-running `/ship`.
+   either send them back to `/build <KEY>` to finish the RED must-have behaviors or mark the
+   remaining behaviors cut (with `~`) and commit that decision before re-running `/ship`.
 
 ### Step 1: Load Feature
 
