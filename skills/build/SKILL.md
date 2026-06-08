@@ -429,8 +429,8 @@ If this is NOT the first session:
 
 ### Step 6: Capacity Check and Scope Hammering
 
-**Monitor your session capacity.** When you sense the session is getting long and significant
-work remains, trigger an interactive scope hammering session:
+**Monitor your session capacity.** When `sessions_remaining` ≤ 1 while `must_haves_remaining` > 0
+(per `check-session-budget.sh`, run below), trigger an interactive scope hammering session:
 
 1. **Check session budget**:
    ```bash
