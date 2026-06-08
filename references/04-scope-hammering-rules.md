@@ -125,7 +125,7 @@ When QA finds issues late in the build:
 1. **Default classification**: All QA issues are nice-to-haves
 2. **Triage**: Team evaluates severity
 3. **Elevate to must-have**: Only if genuinely critical to core functionality
-4. **Organize**: Move must-have issues to the relevant scope's task list
+4. **Organize**: Move must-have issues as `[RED]` behaviors into the relevant scope's Behaviors section
 5. **Leave nice-to-haves**: They get cut if time runs out
 
 ---
