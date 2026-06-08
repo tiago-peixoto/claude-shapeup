@@ -283,7 +283,7 @@ After the first piece, scopes emerge from real work:
    <Context, decisions, blockers; link backing automated tests here>
    ```
 
-4. **Validate scope quality** — four checks:
+4. **Validate scope quality** — five checks:
    - Can you see the whole project at macro level?
    - Do scope names describe a **business capability or user outcome**, not a technical layer?
    - Do new behaviors easily categorize into existing scopes?
