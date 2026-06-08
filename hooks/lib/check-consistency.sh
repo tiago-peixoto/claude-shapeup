@@ -68,7 +68,7 @@ while IFS= read -r name; do
   if echo "$position" | grep -q '✓'; then
     # Scope claims Done but has unchecked must-haves — that's a contradiction.
     if [ "$unchecked_count" -gt 0 ]; then
-      fail "scope '$name' claims ✓ Done but has $unchecked_count unchecked must-have(s)"
+      fail "scope '$name' claims ✓ Done but has $unchecked_count RED must-have behavior(s) — flip to [GREEN] when observable, or cut with ~"
     fi
   fi
 
@@ -151,7 +151,7 @@ case "$MODE" in
       unchecked=$(grep -E '^- (\[ \]|\[RED\])' "$f" 2>/dev/null | grep -vE '^- (\[ \]|\[RED\]) *~' | wc -l | tr -d ' ')
       unchecked="${unchecked:-0}"
       if [ "$unchecked" -gt 0 ]; then
-        fail "scope '$sn' has $unchecked unchecked must-have(s) — check them or mark cut (~)"
+        fail "scope '$sn' has $unchecked RED must-have behavior(s) — flip to [GREEN] when observable, or cut with ~"
       fi
     done <<< "$SCOPE_NAMES"
     ;;
