@@ -89,8 +89,8 @@ Scopes are independent parts of the project that can be built, integrated, and f
 
 Scopes are **discovered through real work**, not planned upfront.
 
-1. Start by capturing tasks as they're found
-2. As work reveals relationships, group tasks into scopes
+1. Start by capturing behaviors as they're found — each a user-noticeable vertical slice, tracked from RED (not yet observable) to GREEN (the behavior works)
+2. As work reveals relationships, group behaviors into scopes
 3. Name each scope with language specific to THIS project
 4. Expect scopes to stabilize during session 1 or start of session 2
 5. Expect shuffling and renaming as real boundaries emerge
@@ -98,14 +98,14 @@ Scopes are **discovered through real work**, not planned upfront.
 ### Scope Quality Checks
 
 **Good scopes have:**
-- [ ] You can see the whole project at macro level
-- [ ] Conversations use scope names naturally
-- [ ] New tasks easily categorize into existing scopes
+- You can see the whole project at macro level
+- Conversations use scope names naturally
+- New behaviors easily categorize into existing scopes
 
 **Bad scopes show:**
-- [ ] Hard to say when a scope is "done" → tasks inside are unrelated, factor them out
-- [ ] Name isn't unique to the project (e.g., "frontend", "bugs", "chores") → grab-bag, not a real scope
-- [ ] Too big to finish soon → break into smaller pieces
+- Hard to say when a scope is "done" → behaviors inside are unrelated, factor them out
+- Name isn't unique to the project (e.g., "frontend", "bugs", "chores") → grab-bag, not a real scope
+- Too big to finish soon → break into smaller pieces
 
 ### Scope Patterns
 
@@ -118,10 +118,12 @@ Scopes are **discovered through real work**, not planned upfront.
 
 ### Nice-to-Have Marking
 
-Mark tasks with `~` prefix to indicate nice-to-have status:
-- `~ Polish loading animation`
-- `~ Handle edge case for empty state`
-- `~ Refactor data layer`
+Behaviors carry a RED/GREEN state: `- [RED]` (not yet observable) and `- [GREEN]` (the user-noticeable behavior works). A scope is done when its must-have behaviors are GREEN.
+
+Mark a behavior with `~` after its state marker to indicate nice-to-have status:
+- `- [RED] ~ Loading animation feels smooth`
+- `- [RED] ~ Empty state shows a helpful message`
+- `- [GREEN] ~ Data layer reads stay fast under load`
 
 Nice-to-haves are cut without guilt if time runs out. They are the primary tool for scope management.
 
@@ -201,8 +203,8 @@ Continuously question every piece of work:
 
 ### Must-Have vs Nice-to-Have
 
-- **Must-have**: Task stays on scope. Scope not done until task finished.
-- **Nice-to-have** (`~`): Done if time permits. Cut without guilt. Usually never built.
+- **Must-have**: Behavior stays on scope. Scope not done until the behavior is GREEN.
+- **Nice-to-have** (`~`): Done if time permits. Cut without guilt while still RED. Usually never built.
 
 ### QA Integration
 

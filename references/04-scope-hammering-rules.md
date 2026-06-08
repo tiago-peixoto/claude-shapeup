@@ -58,18 +58,20 @@ Apply these questions to ANY piece of work that surfaces:
 
 ---
 
-## Task Classification
+## Behavior Classification
+
+Scope work is tracked as behaviors — user-noticeable vertical slices, each carrying a RED (not yet observable) / GREEN (the behavior works) state. Must-have vs nice-to-have applies to each behavior.
 
 ### Must-Haves
-- Required for the scope to be considered "done"
+- Required for the scope to be considered "done" (its must-have behaviors GREEN)
 - Survived all scope hammering questions above
-- Listed as regular tasks on the scope
+- Listed as regular behaviors on the scope
 
 ### Nice-to-Haves (marked with `~`)
 - Done if sessions remain after must-haves are complete
-- Cut without guilt when the session budget is exhausted
+- Cut without guilt while still RED when the session budget is exhausted
 - Tracked in handovers so they're considered in future sessions
-- Can apply to individual tasks OR entire scopes
+- Can apply to individual behaviors OR entire scopes
 
 ### Out of Bounds (from pitch No-Gos)
 - Explicitly excluded during shaping

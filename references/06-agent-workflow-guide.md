@@ -79,7 +79,7 @@ SESSION 1: ORIENT + FIRST PIECE
 SESSION 1-2: MAP SCOPES
 ├── Discover scopes through real work (not upfront planning)
 ├── Name scopes with project-specific language
-├── Classify tasks: must-have vs nice-to-have (~)
+├── Classify behaviors (RED→GREEN slices): must-have vs nice-to-have (~)
 └── Validate: Can you see the whole project? Do scope names feel natural?
 
 MIDDLE SESSIONS: EXECUTE + TRACK

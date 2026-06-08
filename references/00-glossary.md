@@ -8,6 +8,8 @@
 
 **Baseline**: What customers currently do without the feature being built. The comparison point for judging "good enough."
 
+**Behavioral Test**: A unit of scope work expressed as a user-noticeable vertical slice — a concrete change a user could observe — tracked from RED (not yet observable) to GREEN (the behavior works). Replaces technical task checkboxes as the way scope work is described.
+
 **Bet**: A commitment to invest the allocated sessions on a project with no interruptions and an expectation to finish.
 
 **Betting Table**: The decision point where the stakeholder decides which packages to commit sessions to. Clean slate each time.
@@ -40,9 +42,9 @@
 
 **Layer Cake**: A scope with evenly distributed UI and backend work. Can be estimated by UI surface area.
 
-**Nice-to-Have**: A task marked with `~` prefix. Done only if time permits; cut without guilt if not.
+**Nice-to-Have**: A behavior marked with `~` prefix (e.g. `- [RED] ~ ...`). Carries RED/GREEN state like any behavior. Done only if time permits; cut without guilt if not.
 
-**Must-Have**: A task required for a scope to be considered done. Survives scope hammering.
+**Must-Have**: A behavior required for a scope to be considered done. Carries RED/GREEN state; a scope is done when its must-have behaviors are GREEN. Survives scope hammering.
 
 **No-Go**: An explicit exclusion stated in the pitch. Functionality deliberately NOT included.
 
