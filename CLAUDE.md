@@ -31,6 +31,12 @@ in the behavioral layer; regressions on scaffolding belong in the unit layer.
 
 ## Before editing a prompt
 
+**Use the `behavior-tdd` skill** (`.claude/skills/behavior-tdd/`) for any change to agent
+behavior — editing a `skills/*/SKILL.md`, a `references/*` doc, or a behavioral contract. It
+operationalizes the steps below: establish the behavioral RED, prove it with the ablation
+negative-control (`run-behavioral.sh --ablate`), edit, verify GREEN pass^k + unit + regression,
+and commit cleanly with a single version bump. Don't hand-roll prompt edits without it.
+
 1. Start from a concrete signal: a failing test, a user complaint, or a
    behavioral scenario. No speculative rewording — if you can't describe
    what's broken, don't edit.
