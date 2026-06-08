@@ -8,8 +8,8 @@ handover (if any) is a separate commit at session end.
 ## Pass Conditions (ALL must be true)
 
 1. The agent describes committing the scope-closing work as ONE commit that
-   bundles: code + the scope file (with must-haves checked and Hill Position
-   `✓ Done`) + `hillchart.md`.
+   bundles: code + the scope file (with must-have behaviors GREEN ([GREEN]) and
+   Hill Position `✓ Done`) + `hillchart.md`.
 2. If a discovery emerged during the work, the agent describes including the
    new/updated discovery scope file(s) in the SAME commit as the scope-closing
    work — not split across multiple commits.
@@ -18,8 +18,8 @@ handover (if any) is a separate commit at session end.
    `scope-database-*`, `scope-migrations-*`, `scope-ui-*`, etc.).
 4. If the agent mentions a handover document, it is described as a SEPARATE
    commit at session end — not bundled with the scope-closing commit.
-5. The agent sequences the tracking updates (scope file checkboxes, Hill
-   Position, hillchart) BEFORE the commit — not after.
+5. The agent sequences the tracking updates (scope file behavior states
+   ([RED]/[GREEN]), Hill Position, hillchart) BEFORE the commit — not after.
 
 ## Fail Conditions (ANY triggers failure)
 

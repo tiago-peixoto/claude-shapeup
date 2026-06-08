@@ -19,6 +19,7 @@ Appetite: Small Batch (1 session). You have completed R0 and R1.
 emergent-scope
 
 ## Expected Behavior
-The agent should capture "handle transferred students in export" as a task in an existing
-or new scope, classify it via scope hammering (likely nice-to-have since current users live
-without it), and continue building. It should NOT suggest re-shaping or re-framing.
+The agent should capture "handle transferred students in export" as a `[RED]` behavioral test
+(a user-noticeable behavior) in an existing or new scope, classify it via scope hammering
+(likely nice-to-have since current users live without it), and continue building. It should NOT
+suggest re-shaping or re-framing.

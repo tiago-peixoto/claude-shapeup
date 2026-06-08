@@ -30,7 +30,7 @@ commit-discipline
 ## Expected Behavior
 The agent should walk through closing `scope-user-can-filter-invoices`:
 
-1. Tick the last must-have `[x]` in the scope file, move Hill Position to `✓ Done`.
+1. Flip the last must-have behavior to `[GREEN]` in the scope file, move Hill Position to `✓ Done`.
 2. Update `hillchart.md` so the symbol for this scope matches.
 3. Create a new scope file for the bulk-export discovery, business-capability
    named (e.g. `scope-user-can-export-filtered-invoices.md`, NOT

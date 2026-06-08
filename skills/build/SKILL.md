@@ -129,13 +129,14 @@ repeat work that was already done, or push through scopes that were already cut.
 
 The subagent's job is to answer, with file_path:line_number citations:
 
-1. **Scope checkbox vs reality** — For every scope file in `<FEATURE_DIR>/scopes/`:
-   - List each must-have task, whether it's `[x]`/`[ ]`, and whether the code actually
-     implements it (greppable function, committed test, or visible UI affordance).
-   - Flag any task marked `[x]` where the subagent cannot find supporting code or tests
-     ("claimed done but no evidence").
-   - Flag any task marked `[ ]` where the subagent finds clear evidence it's already
-     implemented ("done on disk but still unchecked").
+1. **Scope behavior state vs reality** — For every scope file in `<FEATURE_DIR>/scopes/`:
+   - List each must-have behavior, whether it's `[GREEN]`/`[RED]`, and whether the code
+     actually makes it observable (greppable function, committed test, or visible UI
+     affordance).
+   - Flag any behavior marked `[GREEN]` where the subagent cannot find supporting code or
+     tests ("claimed done but no evidence").
+   - Flag any behavior marked `[RED]` where the subagent finds clear evidence it's already
+     observable ("done on disk but still RED").
 
 2. **Hill chart vs scope files** — For each scope in `hillchart.md`, does its hill position
    (▲ / ▼ / ✓) match the scope file's `## Hill Position` line? Flag any disagreement.
@@ -149,9 +150,9 @@ The subagent's job is to answer, with file_path:line_number citations:
 
 **Apply the audit before starting work:**
 
-- If the subagent reports "claimed done but no evidence" → flip the checkbox back to `[ ]`
+- If the subagent reports "claimed done but no evidence" → flip the behavior back to `[RED]`
   in the scope file and add a note explaining why. Update the hill chart to match.
-- If the subagent reports "done on disk but still unchecked" → tick the checkbox `[x]` and
+- If the subagent reports "done on disk but still RED" → flip the behavior to `[GREEN]` and
   update the hill chart position. This is regular tracking hygiene, not scope creep.
 - If the subagent reports hill chart / scope disagreement → pick the source of truth (usually
   the scope file) and fix the hill chart.
@@ -257,8 +258,9 @@ The first piece is now downhill (or done). Update the hillchart.md.
 
 After the first piece, scopes emerge from real work:
 
-1. **Capture tasks as you discover them** — don't pre-plan everything
-2. **Group related tasks into scopes** — independent, finishable units
+1. **Capture behaviors as you discover them** — user-noticeable vertical slices, not
+   implementation steps; don't pre-plan everything
+2. **Group related behaviors into scopes** — independent, finishable units
 3. **Create scope files** at `$FEATURE_DIR/scopes/scope-<name>.md` (where `$FEATURE_DIR`
    is resolved per the standard prelude):
    Each scope file:
@@ -268,23 +270,26 @@ After the first piece, scopes emerge from real work:
    ## Hill Position
    ▲ Uphill — <description of what's unknown>
 
-   ## Must-Haves
-   - [ ] Task 1
-   - [ ] Task 2
+   ## Behaviors (must-have)
+   <!-- Each behavior is a user-noticeable vertical slice. [RED] = not yet observable;
+        [GREEN] = the user-noticeable behavior works (proven by a passing test / browser check). -->
+   - [RED] <User can observe/do X end-to-end>
+   - [RED] <User can observe/do Y end-to-end>
 
-   ## Nice-to-Haves (~)
-   - [ ] ~ Task 3
-   - [ ] ~ Task 4
+   ## Behaviors (nice-to-have, ~)
+   - [RED] ~ <Nice-to-have user-noticeable behavior>
 
    ## Notes
-   <Context, decisions, blockers>
+   <Context, decisions, blockers; link backing automated tests here>
    ```
 
 4. **Validate scope quality** — four checks:
    - Can you see the whole project at macro level?
    - Do scope names describe a **business capability or user outcome**, not a technical layer?
-   - Do new tasks easily categorize into existing scopes?
+   - Do new behaviors easily categorize into existing scopes?
    - Does each scope deliver **end-to-end functionality** that can be verified independently?
+   - Is each behavior a user-noticeable vertical slice (must-have vs nice-to-have), not a
+     technical task or unit test?
    - If a scope is too big → split it by business capability, not by layer
    - If a scope is organized by technical concern (all migrations, all endpoints, all UI) → it's a horizontal split, redraw it around what the customer can do when it's done
 
@@ -301,13 +306,14 @@ expected part of doing real work. The package defines the problem, appetite, and
 
 When a user raises a new requirement, concern, or question during a build session:
 
-1. **Capture it as a task** in an existing scope whose business capability already covers
-   the discovery, OR create a new scope if it doesn't fit. New scope files MUST be named
-   after a business capability, never a technical layer — same rule as Step 2.
+1. **Capture it as a behavioral test** (a `[RED]` user-noticeable behavior) in an existing
+   scope whose business capability already covers the discovery, OR create a new scope if it
+   doesn't fit. New scope files MUST be named after a business capability, never a technical
+   layer — same rule as Step 2.
 2. **Apply scope hammering** (Gate 1): Is it a must-have or nice-to-have?
    - Default: nice-to-have (`~`). Elevate only if truly critical to the core feature.
-3. **Cancel superseded tasks** if the discovery replaces existing work — move the obsolete
-   tasks under `## Cut` or prefix with `~` in the scope file. Do NOT silently delete.
+3. **Cancel superseded behaviors** if the discovery replaces existing work — move the obsolete
+   behaviors under `## Cut` or prefix with `~` in the scope file. Do NOT silently delete.
 4. **Update the hill chart** if a new scope was created — add it in the same edit that
    records any other progress for the current scope.
 5. **Continue building.** When the parent scope reaches its commit point (Step 4.J), the
@@ -323,12 +329,12 @@ This is rare.
 
 <example>
 User: "What about handling the case where the invoice has multiple currencies?"
-→ Add task `~ Handle multi-currency invoices` to scope-invoice-filtering
+→ Add behavior `- [RED] ~ User sees correct totals on multi-currency invoices` to scope-invoice-filtering
 → Mark as nice-to-have (doesn't block core filtering capability)
 → Continue building the current scope
 
 User: "We should also support exporting the filtered results"
-→ Create new scope `scope-export-filtered-results` with this as a must-have
+→ Create new scope `scope-export-filtered-results` with `- [RED] User exports the filtered list to a file` as a must-have behavior
 → Add to hill chart as ▲ Uphill
 → Continue current scope, tackle export scope by risk priority
 
@@ -351,10 +357,12 @@ A. Write tests for the scope's must-haves
 B. Implement (backend → frontend, vertical integration)
 C. Tests pass
 D. Browser verification (web projects)
-E. Mark scope tasks as done in scope file — tick `[x]` for every must-have that just
-   landed; leave `[ ]` for anything still pending. If you finished a nice-to-have, tick
-   its `[ ]` too. If a task was cut during this step, move it under a `## Cut` heading
-   or prefix it with `~` — do NOT silently delete it.
+E. Flip behavior state in scope file — flip `[RED]` to `[GREEN]` for every must-have
+   behavior that is now observable (its user-noticeable outcome actually works, proven by
+   a passing test or browser check); leave `[RED]` for anything not yet observable. If you
+   finished a nice-to-have behavior, flip its `[RED]` to `[GREEN]` too. If a behavior was
+   cut during this step, move it under a `## Cut` heading or prefix it with `~` — do NOT
+   silently delete it.
 F. Update the scope file's `## Hill Position` line to match the new reality (▲ → ▼ → ✓)
 G. Update `hillchart.md` so its symbol for this scope matches the scope file. If new
    scopes emerged during this work (see "Handling User Feedback During Build" below),
@@ -366,7 +374,7 @@ I. Run the consistency check as a self-audit (see "Self-audit invocation" below)
    with each other.
 J. Commit. One commit per scope completion, bundling:
      - code changes
-     - the touched scope file(s) — checkboxes + Hill Position line
+     - the touched scope file(s) — behavior states ([RED]/[GREEN]) + Hill Position line
      - `hillchart.md`
      - any new/updated discovery scope files (see "Handling User Feedback" below)
    Commit message is freeform; follow project conventions if the repo has them (check
@@ -387,13 +395,13 @@ FEATURE_DIR=$(bash "$PLUGIN_ROOT/hooks/lib/resolve-feature.sh" "$SHAPEUP_DIR" "$
 bash "$PLUGIN_ROOT/hooks/lib/check-consistency.sh" "$FEATURE_DIR" audit
 ```
 
-**Tracking-update rule (non-negotiable):** any time you finish a task, cut a task, or
+**Tracking-update rule (non-negotiable):** any time you finish a behavior, cut a behavior, or
 change a hill position, you MUST update the three artifacts that describe it — the scope
-file's checkbox, the scope file's `## Hill Position`, and `hillchart.md` — in the same
-action. Agents that "batch" tracking updates at the end of a session routinely forget
+file's behavior state ([RED]/[GREEN]), the scope file's `## Hill Position`, and
+`hillchart.md` — in the same action. Agents that "batch" tracking updates at the end of a session routinely forget
 items and ship with stale documentation.
 
-**Continuous scope hammering** — for every new task that surfaces:
+**Continuous scope hammering** — for every new behavior that surfaces:
 - Is it a must-have? If not → mark with `~`
 - Could we ship without it? If yes → `~`
 - Is this a new problem or pre-existing? If pre-existing → `~`
@@ -408,7 +416,7 @@ If this is NOT the first session:
    already corrected (or flagged for you to correct now).
 2. Read the latest `handover-NN.md` from the feature folder
 3. Read `hillchart.md` for current state (corrected per Step 0.5)
-4. Read scope files for task status (corrected per Step 0.5)
+4. Read scope files for behavior state (corrected per Step 0.5)
 5. Pick up where the last session actually left off:
    - Check which scopes are done, uphill, or downhill
    - Identify the next scope to tackle (riskiest remaining)
@@ -434,8 +442,8 @@ work remains, trigger an interactive scope hammering session:
 
 2. **Assess remaining work**:
    - How many scopes are still uphill?
-   - How many must-have tasks remain?
-   - How many nice-to-have tasks remain?
+   - How many must-have behaviors remain RED?
+   - How many nice-to-have behaviors remain RED?
    - Is there anything stuck?
 
 3. **If capacity is tight**, use AskUserQuestion:
@@ -522,8 +530,8 @@ When the session must end with work remaining:
    - <What was cut or marked nice-to-have and why>
 
    ## Outstanding Nice-to-Haves
-   - <Scope>: <task description>
-   - <Scope>: <task description>
+   - <Scope>: <behavior description>
+   - <Scope>: <behavior description>
 
    ## Code Changes
    - <Files modified>
@@ -574,10 +582,10 @@ When all must-haves are complete and all scopes are downhill or done:
    bash "$PLUGIN_ROOT/hooks/lib/check-consistency.sh" "$FEATURE_DIR" pre-ship
    ```
    Every FAIL must be resolved before proceeding. The script blocks on: scopes still
-   ▲ Uphill, unchecked must-haves not explicitly cut, missing Frame Go or Shape Go.
-   Fix the underlying issues (tick boxes that are actually done, cut tasks that you've
-   decided not to ship by prefixing with `~`, or update hill positions) — do NOT edit
-   the script to silence it. Re-run until it exits 0.
+   ▲ Uphill, RED must-have behaviors not explicitly cut, missing Frame Go or Shape Go.
+   Fix the underlying issues (flip behaviors to `[GREEN]` that are actually observable, cut
+   behaviors that you've decided not to ship by prefixing with `~`, or update hill positions)
+   — do NOT edit the script to silence it. Re-run until it exits 0.
 
 4. **Write build summary** for the ship phase.
    This is the builder's raw notes — ship uses it as *input* (alongside `frame.md` and `package.md`)
@@ -646,4 +654,5 @@ When all must-haves are complete and all scopes are downhill or done:
 - **Organizing by role**: Not "designer tasks" and "programmer tasks". Organize by scope.
 - **Mixing reactive work**: Bugs and incidents are separate. Don't let them eat the build sessions.
 - **Organizing scopes by technical layer**: Horizontal splits (all migrations in one scope, all endpoints in another) prevent end-to-end verification until everything is stitched together — bugs hide at the seams. Organize scopes around what the customer can do when the scope is done: `scope-invoice-filtering` (migration + model + endpoint + response) can be tested independently, while `scope-backend-api` cannot.
-- **Re-framing or re-shaping when new requirements surface during build**: Build-time discoveries are emergent scope — capture them as tasks, apply scope hammering, and keep building. Going back to `/frame` or `/shape` breaks momentum and treats normal scope emergence as a shaping failure.
+- **Re-framing or re-shaping when new requirements surface during build**: Build-time discoveries are emergent scope — capture them as `[RED]` behavioral tests, apply scope hammering, and keep building. Going back to `/frame` or `/shape` breaks momentum and treats normal scope emergence as a shaping failure.
+- **Tracking technical tasks instead of behaviors**: Scope items are user-noticeable behaviors that go [RED] -> [GREEN], not implementation steps or unit tests. 'Add endpoint' or 'write parser' is not a behavior; 'user filters invoices and the list updates' is.

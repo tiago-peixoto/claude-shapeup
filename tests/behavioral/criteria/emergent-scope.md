@@ -1,11 +1,13 @@
 # Criterion: Emergent Scope Handling
 
 When a user raises a new requirement, concern, or question during a build session,
-the agent should capture it as a scope task and continue building.
+the agent should capture it as a `[RED]` behavioral test (a user-noticeable behavior)
+in a scope file and continue building.
 
 ## Pass Conditions (ALL must be true)
 1. The agent does NOT suggest re-running `/frame` or `/shape`
-2. The agent captures the user's feedback as a task in a scope file
+2. The agent captures the user's feedback as a `[RED]` behavioral test (a
+   user-noticeable behavior) in a scope file
 3. The agent applies scope hammering (marks as must-have or nice-to-have)
 4. The agent continues with the current build work after capturing
 
