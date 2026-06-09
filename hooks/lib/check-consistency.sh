@@ -14,6 +14,10 @@
 #   * Scopes marked `▲ Uphill` or `▼ Downhill` are NOT also listed as `✓ Done`.
 #   * In pre-ship mode: no scope is still ▲ Uphill, package.md has Shape Go,
 #     and frame.md has Frame Go.
+#   * Scope-level vs behavior-level nice-to-have: a scope listed with a leading
+#     `~` in the hill chart is a nice-to-have SCOPE (cuttable as a whole). Its
+#     unfinished `[RED]` must-have behaviors WARN (not FAIL) at pre-ship — the
+#     scope can simply be cut. A non-`~` scope's RED must-haves still FAIL.
 #
 # The script is intentionally conservative: any ambiguity is reported as a
 # WARN, not a FAIL. FAILs are things that are provably inconsistent.
@@ -34,6 +38,23 @@ WARNS=0
 fail() { echo "FAIL: $*"; FAILS=$((FAILS + 1)); }
 warn() { echo "WARN: $*"; WARNS=$((WARNS + 1)); }
 note() { echo "NOTE: $*"; }
+
+# A scope listed with a leading ~ in the hill chart Scopes section is a
+# nice-to-have SCOPE — cuttable as a whole — so its unfinished must-have
+# behaviors are acceptable (WARN, not FAIL) at the pre-ship gate. Behavior-level
+# ~ (individual nice-to-have behaviors inside a scope) is a separate, finer marker.
+HILL_TILDE_NAMES=""
+scope_is_nice_to_have() {
+  local kebab="$1" tn tkebab
+  while IFS= read -r tn; do
+    [ -z "$tn" ] && continue
+    tkebab=$(echo "$tn" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/^-|-$//g')
+    if [ "$tkebab" = "$kebab" ] || [[ "$tkebab" == *"$kebab"* ]] || [[ "$kebab" == *"$tkebab"* ]]; then
+      return 0
+    fi
+  done <<< "$HILL_TILDE_NAMES"
+  return 1
+}
 
 SCOPES_DIR="$FEATURE_DIR/scopes"
 HILLCHART="$FEATURE_DIR/hillchart.md"
@@ -83,6 +104,17 @@ if [ -f "$HILLCHART" ]; then
     /^## / && in_scopes {in_scopes=0}
     in_scopes && /^  *[✓▼▲~]/ {
       sub(/^ *[✓▼▲~] */, "", $0)
+      sub(/ *—.*$/, "", $0)
+      print
+    }
+  ' "$HILLCHART" 2>/dev/null)
+
+  # Subset: scopes flagged nice-to-have (leading ~) — cuttable as a whole.
+  HILL_TILDE_NAMES=$(awk '
+    /^## Scopes/ {in_scopes=1; next}
+    /^## / && in_scopes {in_scopes=0}
+    in_scopes && /^  *~/ {
+      sub(/^ *~ */, "", $0)
       sub(/ *—.*$/, "", $0)
       print
     }
@@ -151,7 +183,11 @@ case "$MODE" in
       unchecked=$(grep -E '^- (\[ \]|\[RED\])' "$f" 2>/dev/null | grep -vE '^- (\[ \]|\[RED\]) *~' | wc -l | tr -d ' ')
       unchecked="${unchecked:-0}"
       if [ "$unchecked" -gt 0 ]; then
-        fail "scope '$sn' has $unchecked RED must-have behavior(s) — flip to [GREEN] when observable, or cut with ~"
+        if scope_is_nice_to_have "$sn"; then
+          warn "nice-to-have scope '$sn' has $unchecked RED must-have behavior(s) — acceptable (scope is cuttable); cut it explicitly or finish"
+        else
+          fail "scope '$sn' has $unchecked RED must-have behavior(s) — flip to [GREEN] when observable, or cut with ~"
+        fi
       fi
     done <<< "$SCOPE_NAMES"
     ;;

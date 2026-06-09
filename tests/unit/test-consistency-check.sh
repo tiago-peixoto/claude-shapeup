@@ -263,6 +263,71 @@ bash "$CHECK" "$BASE" pre-ship >/dev/null 2>&1 && fail "pre-ship should block wh
 rm -rf "$TMPDIR"
 
 echo ""
+echo "=== Consistency Check: nice-to-have scope precedence ==="
+
+# A ~ (nice-to-have) scope with a RED must-have must NOT fail pre-ship — it's
+# cuttable as a whole; the checker WARNs instead. A must-have ✓ core scope is
+# held constant so the only variable is the extras scope's hill-chart marker.
+TMPDIR=$(mktemp -d)
+BASE="$TMPDIR/2026-04-20-nice-scope-building"
+seed_feature "$BASE"
+cat > "$BASE/hillchart.md" <<'EOF'
+# Hill Chart
+## Scopes
+  ✓ core — Done
+  ~ extras — Nice-to-have (cut if needed)
+EOF
+cat > "$BASE/scopes/scope-core.md" <<'EOF'
+# Scope: core
+## Hill Position
+✓ Done
+## Behaviors (must-have)
+- [GREEN] User sees the core capability
+EOF
+cat > "$BASE/scopes/scope-extras.md" <<'EOF'
+# Scope: extras
+## Hill Position
+▼ Downhill
+## Behaviors (must-have)
+- [RED] User sees the optional extra
+EOF
+OUTPUT=$(bash "$CHECK" "$BASE" pre-ship)
+STATUS=$?
+if [ "$STATUS" -eq 0 ] && echo "$OUTPUT" | grep -q "nice-to-have scope 'extras'"; then
+  pass "pre-ship passes (WARN) a ~ nice-to-have scope with a RED must-have"
+else
+  fail "pre-ship should WARN (not FAIL) a ~ nice-to-have scope with RED must-have (status=$STATUS)"
+fi
+rm -rf "$TMPDIR"
+
+# The SAME scope without the ~ marker (listed ▼) must still FAIL pre-ship.
+TMPDIR=$(mktemp -d)
+BASE="$TMPDIR/2026-04-20-nice-scope-neg-building"
+seed_feature "$BASE"
+cat > "$BASE/hillchart.md" <<'EOF'
+# Hill Chart
+## Scopes
+  ✓ core — Done
+  ▼ extras — Downhill
+EOF
+cat > "$BASE/scopes/scope-core.md" <<'EOF'
+# Scope: core
+## Hill Position
+✓ Done
+## Behaviors (must-have)
+- [GREEN] User sees the core capability
+EOF
+cat > "$BASE/scopes/scope-extras.md" <<'EOF'
+# Scope: extras
+## Hill Position
+▼ Downhill
+## Behaviors (must-have)
+- [RED] User sees the optional extra
+EOF
+bash "$CHECK" "$BASE" pre-ship >/dev/null 2>&1 && fail "pre-ship should block a non-~ scope with a RED must-have" || pass "pre-ship blocks a non-~ scope with a RED must-have"
+rm -rf "$TMPDIR"
+
+echo ""
 echo "=== Results ==="
 echo "  PASS: $PASS"
 echo "  FAIL: $FAIL"
