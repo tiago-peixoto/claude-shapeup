@@ -129,6 +129,13 @@ Nice-to-haves are cut without guilt if time runs out. They are the primary tool 
 
 Entire scopes can also be marked as nice-to-have.
 
+**Precedence — scope-level vs behavior-level `~`.** A behavior-level `~` marks an individual
+nice-to-have behavior inside an otherwise must-have scope. A scope listed with a leading `~` in
+the hill chart is a nice-to-have *scope*, cuttable as a whole: its unfinished (`[RED]`) must-have
+behaviors are acceptable and do not block shipping — the pre-ship check WARNs rather than FAILs,
+because the scope can simply be cut. A scope is complete when all its must-have behaviors are
+`[GREEN]`.
+
 ---
 
 ## Phase 4: Track Progress with Hill Charts
