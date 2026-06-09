@@ -288,6 +288,13 @@ After the first piece, scopes emerge from real work:
    <Context, decisions, blockers; link backing automated tests here>
    ```
 
+   **Scope-level vs behavior-level `~`**: the `~` on a behavior marks an individual
+   nice-to-have behavior inside an otherwise must-have scope. A whole scope can *also* be
+   nice-to-have — list it with a leading `~` in `hillchart.md` (`~ <scope> — Nice-to-have`).
+   A nice-to-have **scope** is cuttable in its entirety: its `[RED]` must-have behaviors do
+   **not** block shipping (the pre-ship check WARNs, it does not FAIL). A scope is complete
+   when all its must-have behaviors are `[GREEN]`; a `~` scope can simply be cut whole.
+
 4. **Validate scope quality** — five checks:
    - Can you see the whole project at macro level?
    - Do scope names describe a **business capability or user outcome**, not a technical layer?
